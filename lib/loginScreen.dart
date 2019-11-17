@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rescue_code/style/theme.dart' as Theme;
 import 'package:rescue_code/style/bubble_indication_painter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -28,17 +31,30 @@ class _LoginPageState extends State<LoginPage>
   // TextFields Controllers
   TextEditingController loginEmailController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
-  TextEditingController signupEmailController = new TextEditingController();
-  TextEditingController signupNameController = new TextEditingController();
-  TextEditingController signupPasswordController = new TextEditingController();
-  TextEditingController signupConfirmPasswordController =
-      new TextEditingController();
 
   // Page Controller
   PageController _pageController;
 
   Color left = Colors.black;
   Color right = Colors.white;
+
+  void login() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: loginEmailController.text,
+            password: loginPasswordController.text)
+        .then((currentUser) {
+      Firestore.instance
+          .collection("users")
+          .document(currentUser.user.uid)
+          .get()
+          .then((DocumentSnapshot result) async {
+        await _prefs.setString("uid", currentUser.user.uid);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

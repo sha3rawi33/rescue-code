@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rescue_code/style/theme.dart' as Theme;
-import 'package:rescue_code/style/bubble_indication_painter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key}) : super(key: key);
@@ -13,39 +15,78 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage>
     with SingleTickerProviderStateMixin {
-
+  // Scaffold Keys
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  // FocusNodes
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
-
   final FocusNode myFocusNodePassword = FocusNode();
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
 
-  TextEditingController loginEmailController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
-
-  bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
   bool _obscureTextSignupConfirm = true;
 
+  // TextFields Controllers
   TextEditingController signupEmailController = new TextEditingController();
   TextEditingController signupNameController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
   TextEditingController signupConfirmPasswordController =
-  new TextEditingController();
+      new TextEditingController();
 
+  // Page Controller
   PageController _pageController;
 
   Color left = Colors.black;
   Color right = Colors.white;
 
+  // Firebase Instances
+  var databaseInstance = Firestore.instance;
+  var authInstance = FirebaseAuth.instance;
+  void createUser() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    if (signupPasswordController.text != "" &&
+        signupPasswordController.text == signupConfirmPasswordController.text) {
+      await authInstance
+          .createUserWithEmailAndPassword(
+        email: signupEmailController.text,
+        password: signupPasswordController.text,
+      )
+          .then((currentUser) async {
+        var allUsers =
+            await databaseInstance.collection('users').getDocuments();
+        var newID = allUsers.documents.length + 1;
+        databaseInstance
+            .collection("users")
+            .document(currentUser.user.uid)
+            .setData({
+          "token": currentUser.user.uid,
+          "id": newID.toString(),
+          "type": "user",
+          "name": signupNameController.text,
+          "email": signupEmailController.text
+        });
+        // Save USER ID from Firebase in SharedPreferences
+
+        await _prefs.setString("uid", currentUser.user.uid);
+      });
+    } else {
+      print('Wrong Email or Password Format');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: Text("Sign Up", style: TextStyle(fontFamily: "customFont", fontSize: 30, fontWeight: FontWeight.w900),),
+        title: Text(
+          "Sign Up",
+          style: TextStyle(
+              fontFamily: "customFont",
+              fontSize: 30,
+              fontWeight: FontWeight.w900),
+        ),
         centerTitle: true,
         backgroundColor: Colors.pinkAccent.shade200,
       ),
@@ -82,7 +123,6 @@ class _SignUpPageState extends State<SignUpPage>
                       fit: BoxFit.fill,
                       image: new AssetImage('assets/login_logo.png')),
                 ),
-
                 Expanded(
                   flex: 2,
                   child: ConstrainedBox(
@@ -135,9 +175,6 @@ class _SignUpPageState extends State<SignUpPage>
       duration: Duration(seconds: 3),
     ));
   }
-
-
-
 
   Widget _buildSignUp(BuildContext context) {
     return Container(
@@ -254,7 +291,6 @@ class _SignUpPageState extends State<SignUpPage>
                         height: 1.0,
                         color: Colors.grey[400],
                       ),
-
                     ],
                   ),
                 ),
@@ -300,8 +336,7 @@ class _SignUpPageState extends State<SignUpPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("SignUp button pressed")),
+                    onPressed: () => showInSnackBar("SignUp button pressed")),
               ),
             ],
           ),
@@ -310,12 +345,10 @@ class _SignUpPageState extends State<SignUpPage>
     );
   }
 
-
   void _onSignUpButtonPress() {
     _pageController?.animateToPage(1,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
-
 
   void _toggleSignup() {
     setState(() {

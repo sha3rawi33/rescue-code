@@ -7,7 +7,7 @@ void main() => runApp(MaterialApp(
       theme: ThemeData(fontFamily: 'customFont'),
       title: "RescueCode",
       home: new Scaffold(
-        body: landingPage(),
+        body: LandingPage(),
       ),
       routes: {
         "login": (context) => new LoginPage(),

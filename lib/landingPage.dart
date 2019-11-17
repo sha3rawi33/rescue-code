@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
 
-class landingPage extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
