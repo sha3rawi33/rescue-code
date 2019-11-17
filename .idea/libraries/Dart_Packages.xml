@@ -23,6 +23,13 @@
             </list>
           </value>
         </entry>
+        <entry key="avatar_glow">
+          <value>
+            <list>
+              <option value="H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/avatar_glow-1.1.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -97,6 +104,13 @@
           <value>
             <list>
               <option value="H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.4/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="intro_views_flutter">
+          <value>
+            <list>
+              <option value="H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/intro_views_flutter-2.8.0/lib" />
             </list>
           </value>
         </entry>
@@ -218,6 +232,7 @@
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/archive-2.0.10/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.5.2/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.3.0/lib" />
+      <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/avatar_glow-1.1.0/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-1.0.5/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.2/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.14.11/lib" />
@@ -227,6 +242,7 @@
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.2.8/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-8.5.0/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.4/lib" />
+      <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/intro_views_flutter-2.8.0/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.5/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.1.7/lib" />
       <root url="file://H:/PROGRAMMING/Frameworks/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />

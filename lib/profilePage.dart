@@ -341,7 +341,7 @@ class MapScreenState extends State<ProfilePage>
                                       ),
                                       flex: 2,
                                     ),
-                                   
+
                                   ],
                                 )),
                             Padding(
