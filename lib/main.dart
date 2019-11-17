@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'landingPage.dart';
 import 'loginScreen.dart';
+import 'signUpScreen.dart';
 
 void main() => runApp(MaterialApp(
       theme: ThemeData(fontFamily: 'customFont'),
@@ -8,5 +9,8 @@ void main() => runApp(MaterialApp(
       home: new Scaffold(
         body: landingPage(),
       ),
-      routes: {"login": (context) => new LoginPage()},
+      routes: {
+        "login": (context) => new LoginPage(),
+        "signup": (context) => new SignUpPage(),
+      },
     ));

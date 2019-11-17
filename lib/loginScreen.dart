@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,7 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final FocusNode myFocusNodeEmailLogin = FocusNode();
@@ -35,7 +33,7 @@ class _LoginPageState extends State<LoginPage>
   TextEditingController signupNameController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
   TextEditingController signupConfirmPasswordController =
-  new TextEditingController();
+      new TextEditingController();
 
   PageController _pageController;
 
@@ -74,7 +72,7 @@ class _LoginPageState extends State<LoginPage>
                   padding: EdgeInsets.only(top: 75.0),
                   child: new Image(
                       width: 250.0,
-                      height: 191.0,
+//                      height: 191.0,
                       fit: BoxFit.fill,
                       image: new AssetImage('assets/login_logo.png')),
                 ),
@@ -333,12 +331,10 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("Login button pressed")),
+                    onPressed: () => showInSnackBar("Login button pressed")),
               ),
             ],
           ),
-
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: Row(
@@ -390,7 +386,7 @@ class _LoginPageState extends State<LoginPage>
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: FlatButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, "signup"),
                 child: Text(
                   "Register New User?",
                   style: TextStyle(
@@ -533,33 +529,28 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("Login button pressed")),
+                    onPressed: () => showInSnackBar("Login button pressed")),
               ),
             ],
           ),
-
         ],
       ),
     );
   }
 
-
   void _onSignInButtonPress() {
     _pageController.animateToPage(0,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
+
   void _onDoctorSignInButtonPress() {
     _pageController.animateToPage(1,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
-
 
   void _toggleLogin() {
     setState(() {
       _obscureTextLogin = !_obscureTextLogin;
     });
   }
-
-
 }

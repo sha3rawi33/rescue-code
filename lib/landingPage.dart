@@ -43,7 +43,7 @@ class landingPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "App",
+                  "Code",
                   style: TextStyle(
                       fontFamily: "customFont",
                       color: Colors.white,
@@ -63,9 +63,10 @@ class landingPage extends StatelessWidget {
                   child: new OutlineButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.green,
+//                    color: Colors.redAccent,
                     highlightedBorderColor: Colors.white,
-                    onPressed: () => (print("Hi")),
+
+                    onPressed: () => Navigator.pushNamed(context, "signup"),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -132,8 +133,4 @@ class landingPage extends StatelessWidget {
       ),
     );
   }
-
-
-
 }
-
