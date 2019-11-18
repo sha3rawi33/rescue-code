@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rescue_code/profilePage.dart';
 import 'package:rescue_code/style/theme.dart' as Theme;
 import 'package:rescue_code/style/bubble_indication_painter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,6 +53,10 @@ class _LoginPageState extends State<LoginPage>
           .get()
           .then((DocumentSnapshot result) async {
         await _prefs.setString("uid", currentUser.user.uid);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProfilePage(uid: currentUser.user.uid)));
       });
     });
   }
@@ -65,68 +70,70 @@ class _LoginPageState extends State<LoginPage>
           overscroll.disallowGlow();
           return true;
         },
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height >= 775.0
-                ? MediaQuery.of(context).size.height
-                : 775.0,
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    Theme.Colors.loginGradientStart,
-                    Theme.Colors.loginGradientEnd
-                  ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 1.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 75.0),
-                  child: new Image(
-                      width: 250.0,
-//                      height: 191.0,
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/login_logo.png')),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: _buildMenuBar(context),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: PageView(
-                    controller: _pageController,
-                    onPageChanged: (i) {
-                      if (i == 0) {
-                        setState(() {
-                          right = Colors.white;
-                          left = Colors.black;
-                        });
-                      } else if (i == 1) {
-                        setState(() {
-                          right = Colors.black;
-                          left = Colors.white;
-                        });
-                      }
-                    },
-                    children: <Widget>[
-                      new ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: _buildSignIn(context),
-                      ),
-                      new ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: _buildDoctorSignIn(context),
-                      ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height >= 775.0
+                  ? MediaQuery.of(context).size.height
+                  : 775.0,
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [
+                      Theme.Colors.loginGradientStart,
+                      Theme.Colors.loginGradientEnd
                     ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 1.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 75.0),
+                    child: new Image(
+                        width: 250.0,
+//                      height: 191.0,
+                        fit: BoxFit.fill,
+                        image: new AssetImage('assets/login_logo.png')),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: _buildMenuBar(context),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (i) {
+                        if (i == 0) {
+                          setState(() {
+                            right = Colors.white;
+                            left = Colors.black;
+                          });
+                        } else if (i == 1) {
+                          setState(() {
+                            right = Colors.black;
+                            left = Colors.white;
+                          });
+                        }
+                      },
+                      children: <Widget>[
+                        new ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: _buildSignIn(context),
+                        ),
+                        new ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: _buildDoctorSignIn(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -348,7 +355,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () => login()),
               ),
             ],
           ),
@@ -546,7 +553,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () => login()),
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rescue_code/profilePage.dart';
 import 'package:rescue_code/style/theme.dart' as Theme;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,8 +47,7 @@ class _SignUpPageState extends State<SignUpPage>
   var authInstance = FirebaseAuth.instance;
   void createUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    if (signupPasswordController.text != "" &&
-        signupPasswordController.text == signupConfirmPasswordController.text) {
+    
       await authInstance
           .createUserWithEmailAndPassword(
         email: signupEmailController.text,
@@ -70,10 +70,12 @@ class _SignUpPageState extends State<SignUpPage>
         // Save USER ID from Firebase in SharedPreferences
 
         await _prefs.setString("uid", currentUser.user.uid);
+
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context)=> ProfilePage(uid: currentUser.user.uid)
+        ));
       });
-    } else {
-      print('Wrong Email or Password Format');
-    }
+    
   }
 
   @override
@@ -336,7 +338,7 @@ class _SignUpPageState extends State<SignUpPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
+                    onPressed: () => createUser()),
               ),
             ],
           ),

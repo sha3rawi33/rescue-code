@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'landingPage.dart';
 import 'loginScreen.dart';
 import 'signUpScreen.dart';
+import 'ambulance.dart';
+import 'onBoardingScreen.dart';
+import 'welcomePage.dart';
 
 void main() => runApp(MaterialApp(
-      theme: ThemeData(fontFamily: 'customFont'),
       title: "RescueCode",
       home: new Scaffold(
-        body: LandingPage(),
+        body: WelcomePage(),
       ),
       routes: {
         "login": (context) => new LoginPage(),
         "signup": (context) => new SignUpPage(),
+        "landingpage": (context) => new LandingPage(),
+        "ambulance": (context) => new EmergencyDashboard(),
+        "boarding": (context) => new OnBoardingScreen()
       },
     ));
