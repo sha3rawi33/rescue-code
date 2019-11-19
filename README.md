@@ -1,16 +1,16 @@
-# rescue_code
+# Rescue Code
 
-A new Flutter application.
+Hey! Don't wait! Time will never be just right so for your life , your health and even your humanity . We chose to rescue the whole world , welcome to our castle " RESCUE CODE " 
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Rescue code app aims to scrimp time needed for rescuing humans' live in emergency time by :
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+• Introduce your medical information .
+• Have your own personal number .
+• Send your location in emergency times by sending your personal number to the nearest hospitals to you " Hospitals have the choice to accept or refuse depending on the availability "
+• Edit and update your data.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots: 
+![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/1.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/2.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/3.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/1.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/4.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/5.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/6.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/7.jpg?raw=true | width=500) ![](https://github.com/sha3rawi33/rescue-code/blob/master/screenshots/8.jpg?raw=true | width=500)
