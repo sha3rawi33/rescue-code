@@ -52,11 +52,47 @@ class _LoginPageState extends State<LoginPage>
           .document(currentUser.user.uid)
           .get()
           .then((DocumentSnapshot result) async {
-        await _prefs.setString("uid", currentUser.user.uid);
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ProfilePage(uid: currentUser.user.uid)));
+        if (result.data['type'] == 'user') {
+          await _prefs.setString("uid", currentUser.user.uid);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ProfilePage(uid: currentUser.user.uid)));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text('Sorry but your email can\'t be logged in as user'),
+          ));
+        }
+      });
+    });
+  }
+
+  void doctorLogin() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: loginEmailController.text,
+            password: loginPasswordController.text)
+        .then((currentUser) {
+      Firestore.instance
+          .collection("users")
+          .document(currentUser.user.uid)
+          .get()
+          .then((DocumentSnapshot result) async {
+        if (result.data['type'] == 'doctor') {
+          await _prefs.setString("uid", currentUser.user.uid);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ProfilePage(uid: currentUser.user.uid)));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text('Sorry but your email can\'t be logged in as doctor'),
+          ));
+        }
       });
     });
   }
