@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b15fb5cb-e27e-43c5-9de6-00e4840fb449" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sideDraw.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sideDraw.dart" afterDir="false" />
-    </list>
+    <list default="true" id="b15fb5cb-e27e-43c5-9de6-00e4840fb449" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -40,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/sideDraw.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="98" column="66" selection-start-line="98" selection-start-column="66" selection-end-line="98" selection-end-column="66" />
+            <state relative-caret-position="345">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -184,6 +178,14 @@
       <option name="presentableId" value="Default" />
       <updated>1573940238019</updated>
     </task>
+    <task id="LOCAL-00001" summary="signout function">
+      <created>1574124918784</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574124918784</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -197,7 +199,7 @@
       <window_info id="Resources Explorer" order="4" />
       <window_info id="Build Variants" order="5" side_tool="true" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" visible="true" weight="0.24966443" />
+      <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.24966443" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.3286119" />
       <window_info anchor="bottom" id="TODO" order="1" />
@@ -209,7 +211,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="9" weight="0.22096318" />
-      <window_info anchor="bottom" id="Run" order="10" visible="true" weight="0.13172804" />
+      <window_info active="true" anchor="bottom" id="Run" order="10" visible="true" weight="0.33144477" />
       <window_info anchor="right" id="Hierarchy" order="0" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Flutter Inspector" order="2" />
@@ -218,6 +220,10 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" />
     </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="signout function" />
+    <option name="LAST_COMMIT_MESSAGE" value="signout function" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/fonts/IcoMoon.ttf">
@@ -362,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sideDraw.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="98" column="66" selection-start-line="98" selection-start-column="66" selection-end-line="98" selection-end-column="66" />
+        <state relative-caret-position="345">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
