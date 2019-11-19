@@ -1,6 +1,6 @@
-cloud_firestore=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.12.10\\
-firebase_auth=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.14.0+9\\
-firebase_core=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.4.1+5\\
-firebase_storage=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage-3.0.8\\
-image_picker=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.6.1+11\\
-shared_preferences=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences-0.5.4+5\\
+cloud_firestore=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.12.10/
+firebase_auth=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.14.0+9/
+firebase_core=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.1+5/
+firebase_storage=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.0.8/
+image_picker=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.1+11/
+shared_preferences=/home/karim/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.4+5/

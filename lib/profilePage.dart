@@ -51,9 +51,17 @@ class MapScreenState extends State<ProfilePage>
   void getData() async {
     var user =
         await Firestore.instance.collection('users').document(widget.uid).get();
-    final ref =
-        FirebaseStorage.instance.ref().child('images/${widget.uid}.png');
-    var url = await ref.getDownloadURL();
+    try {
+      final ref =
+          FirebaseStorage.instance.ref().child('images/${widget.uid}.png');
+      var url = await ref.getDownloadURL();
+      setState(() {
+        profileImage = url;
+      });
+    } catch (e) {
+      print(e);
+    }
+
     Map result = user.data;
     name = result['name'] != null && result['name'] != ''
         ? TextEditingController(text: result['name'])
@@ -103,7 +111,6 @@ class MapScreenState extends State<ProfilePage>
             ? result['heartDisease']
             : false;
     id = result['id'];
-    url != '' && url != null ? profileImage = url : profileImage = null;
     setState(() {});
   }
 
@@ -131,7 +138,7 @@ class MapScreenState extends State<ProfilePage>
       "bloodType": bloodName ?? '',
       "email": email.text,
       "nationalId": nationalId.text,
-      "address":address.text,
+      "address": address.text,
       "mobile": mobile.text,
       "heartDisease": heardDisease,
       "chronic": chronic,

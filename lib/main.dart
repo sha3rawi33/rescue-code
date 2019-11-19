@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'chatList.dart';
 import 'landingPage.dart';
 import 'loginScreen.dart';
 import 'signUpScreen.dart';
@@ -16,6 +17,7 @@ void main() => runApp(MaterialApp(
         "signup": (context) => new SignUpPage(),
         "landingpage": (context) => new LandingPage(),
         "ambulance": (context) => new EmergencyDashboard(),
-        "boarding": (context) => new OnBoardingScreen()
+        "boarding": (context) => new OnBoardingScreen(),
+        "doctors":(context)=> ChatList()
       },
     ));

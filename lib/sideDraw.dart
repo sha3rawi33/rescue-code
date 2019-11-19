@@ -15,7 +15,7 @@ class SideDraw extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.indigo,
+              color: Colors.redAccent,
             ),
             child: GestureDetector(
               onTap: () {
@@ -52,8 +52,8 @@ class SideDraw extends StatelessWidget {
           ListTile(
             leading: Icon(
               Icons.person,
-              size: 40,
-              color: Colors.indigo,
+              size: 30,
+              color: Colors.red,
             ),
             title: Text("Profile"),
             subtitle: Text("Check Your Profile and health details."),
@@ -64,8 +64,8 @@ class SideDraw extends StatelessWidget {
           ListTile(
             leading: Icon(
               FontAwesomeIcons.ambulance,
-              size: 40,
-              color: Colors.indigo,
+              size: 30,
+              color: Colors.red,
             ),
             title: Text("Call Ambulance"),
             subtitle: Text("For Urgent actions."),
@@ -75,9 +75,21 @@ class SideDraw extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
+              FontAwesomeIcons.fileMedical,
+              size: 30,
+              color: Colors.red,
+            ),
+            title: Text("Doctors"),
+            subtitle: Text("To Call Doctors"),
+            onTap: () {
+              Navigator.pushNamed(context, 'doctors');
+            },
+          ),
+          ListTile(
+            leading: Icon(
               Icons.info,
-              size: 40,
-              color: Colors.indigo,
+              size: 30,
+              color: Colors.red,
             ),
             title: Text("About Us "),
             subtitle: Text("About the capstone group."),
@@ -88,8 +100,8 @@ class SideDraw extends StatelessWidget {
           ListTile(
             leading: Icon(
               FontAwesomeIcons.angleLeft,
-              size: 40,
-              color: Colors.indigo,
+              size: 30,
+              color: Colors.red,
             ),
             title: Text("Log Out"),
             subtitle: Text("End your session."),
