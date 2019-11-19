@@ -79,8 +79,8 @@ class MapScreenState extends State<ProfilePage>
         ? result['gender']
         : null;
     drugs = result['drugs'] != null && result['drugs'] != ''
-        ? result['drugs']
-        : null;
+        ? TextEditingController(text:result['drugs'])
+        : TextEditingController();
     diabetes = result['diabetes'] != null && result['diabetes'] != ''
         ? result['diabetes']
         : false;
@@ -131,7 +131,7 @@ class MapScreenState extends State<ProfilePage>
       "infectious":infectious,
       "bloodPresure":bloodPresure,
       "diabetes":diabetes,
-      "drugs":drugs.text
+      "drugs":drugs.text ?? ''
     });
   }
 
@@ -613,13 +613,14 @@ class MapScreenState extends State<ProfilePage>
                                   children: <Widget>[
                                     new Flexible(
                                       child: Checkbox(
+
                                         value: diabetes,
                                         activeColor: Colors.red,
-                                        onChanged: (value) {
+                                        onChanged: !_status ? (value) {
                                           setState(() {
                                             diabetes = value;
                                           });
-                                        },
+                                        } : (s){},
                                       ),
                                     ),
                                   ],
@@ -655,11 +656,11 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         value: bloodPresure,
                                         activeColor: Colors.red,
-                                        onChanged: (value) {
+                                        onChanged: !_status ? (value) {
                                           setState(() {
                                             bloodPresure = value;
                                           });
-                                        },
+                                        } : (s){},
                                       ),
                                     ),
                                   ],
@@ -695,11 +696,11 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: heardDisease,
-                                        onChanged: (value) {
+                                        onChanged: !_status ? (value) {
                                           setState(() {
                                             heardDisease = value;
                                           });
-                                        },
+                                        } : (s){},
                                       ),
                                     ),
                                   ],
@@ -735,11 +736,11 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: infectious,
-                                        onChanged: (value) {
+                                        onChanged:!_status ? (value) {
                                           setState(() {
                                             infectious = value;
                                           });
-                                        },
+                                        } : (s){},
                                       ),
                                     ),
                                   ],
@@ -775,11 +776,11 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: chronic,
-                                        onChanged: (value) {
+                                        onChanged: !_status ? (value) {
                                           setState(() {
                                             chronic = value;
                                           });
-                                        },
+                                        } : (s){},
                                       ),
                                     ),
                                   ],
