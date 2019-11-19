@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SideDraw extends StatelessWidget {
   final name;
+
   SideDraw(this.name);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -90,7 +93,12 @@ class SideDraw extends StatelessWidget {
             ),
             title: Text("Log Out"),
             subtitle: Text("End your session."),
-            onTap: () {}, 
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.remove("uid");
+              Navigator.pushReplacementNamed(context, 'boarding');
+              },
+
           ),
         ],
       ),
