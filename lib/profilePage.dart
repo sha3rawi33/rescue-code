@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'sideDraw.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -61,11 +62,13 @@ class MapScreenState extends State<ProfilePage>
     } catch (e) {
       print(e);
     }
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     Map result = user.data;
     name = result['name'] != null && result['name'] != ''
         ? TextEditingController(text: result['name'])
         : TextEditingController();
+    _prefs.setString('name', result['name']);
     age = result['age'] != null && result['age'] != ''
         ? TextEditingController(text: result['age'])
         : TextEditingController();
