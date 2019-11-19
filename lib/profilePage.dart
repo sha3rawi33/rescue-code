@@ -46,6 +46,7 @@ class MapScreenState extends State<ProfilePage>
   var profileImage;
   TextEditingController government = TextEditingController();
   TextEditingController drugs = TextEditingController();
+  TextEditingController address = TextEditingController();
 
   void getData() async {
     var user =
@@ -72,6 +73,9 @@ class MapScreenState extends State<ProfilePage>
     government = result['government'] != null && result['government'] != ''
         ? TextEditingController(text: result['government'])
         : TextEditingController();
+    address = result['address'] != null && result['address'] != ''
+        ? TextEditingController(text: result['address'])
+        : TextEditingController();
     bloodName = result['bloodType'] != null && result['bloodType'] != ''
         ? result['bloodType']
         : null;
@@ -79,23 +83,25 @@ class MapScreenState extends State<ProfilePage>
         ? result['gender']
         : null;
     drugs = result['drugs'] != null && result['drugs'] != ''
-        ? TextEditingController(text:result['drugs'])
+        ? TextEditingController(text: result['drugs'])
         : TextEditingController();
     diabetes = result['diabetes'] != null && result['diabetes'] != ''
         ? result['diabetes']
         : false;
-        bloodPresure = result['bloodPresure'] != null && result['bloodPresure'] != ''
-        ? result['bloodPresure']
-        : false;
-         chronic = result['chronic'] != null && result['chronic'] != ''
+    bloodPresure =
+        result['bloodPresure'] != null && result['bloodPresure'] != ''
+            ? result['bloodPresure']
+            : false;
+    chronic = result['chronic'] != null && result['chronic'] != ''
         ? result['chronic']
         : false;
-        infectious = result['infectious'] != null && result['infectious'] != ''
+    infectious = result['infectious'] != null && result['infectious'] != ''
         ? result['infectious']
         : false;
-        heardDisease = result['heartDisease'] != null && result['heartDisease'] != ''
-        ? result['heartDisease']
-        : false;
+    heardDisease =
+        result['heartDisease'] != null && result['heartDisease'] != ''
+            ? result['heartDisease']
+            : false;
     id = result['id'];
     url != '' && url != null ? profileImage = url : profileImage = null;
     setState(() {});
@@ -125,13 +131,14 @@ class MapScreenState extends State<ProfilePage>
       "bloodType": bloodName ?? '',
       "email": email.text,
       "nationalId": nationalId.text,
+      "address":address.text,
       "mobile": mobile.text,
-      "heartDisease":heardDisease,
-      "chronic":chronic,
-      "infectious":infectious,
-      "bloodPresure":bloodPresure,
-      "diabetes":diabetes,
-      "drugs":drugs.text ?? ''
+      "heartDisease": heardDisease,
+      "chronic": chronic,
+      "infectious": infectious,
+      "bloodPresure": bloodPresure,
+      "diabetes": diabetes,
+      "drugs": drugs.text ?? ''
     });
   }
 
@@ -499,6 +506,43 @@ class MapScreenState extends State<ProfilePage>
                                     left: 25.0, right: 25.0, top: 25.0),
                                 child: new Row(
                                   mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Address',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: address,
+                                        decoration: const InputDecoration(
+                                            hintText: "Enter your Address"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Expanded(
@@ -613,14 +657,15 @@ class MapScreenState extends State<ProfilePage>
                                   children: <Widget>[
                                     new Flexible(
                                       child: Checkbox(
-
                                         value: diabetes,
                                         activeColor: Colors.red,
-                                        onChanged: !_status ? (value) {
-                                          setState(() {
-                                            diabetes = value;
-                                          });
-                                        } : (s){},
+                                        onChanged: !_status
+                                            ? (value) {
+                                                setState(() {
+                                                  diabetes = value;
+                                                });
+                                              }
+                                            : (s) {},
                                       ),
                                     ),
                                   ],
@@ -656,11 +701,13 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         value: bloodPresure,
                                         activeColor: Colors.red,
-                                        onChanged: !_status ? (value) {
-                                          setState(() {
-                                            bloodPresure = value;
-                                          });
-                                        } : (s){},
+                                        onChanged: !_status
+                                            ? (value) {
+                                                setState(() {
+                                                  bloodPresure = value;
+                                                });
+                                              }
+                                            : (s) {},
                                       ),
                                     ),
                                   ],
@@ -696,11 +743,13 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: heardDisease,
-                                        onChanged: !_status ? (value) {
-                                          setState(() {
-                                            heardDisease = value;
-                                          });
-                                        } : (s){},
+                                        onChanged: !_status
+                                            ? (value) {
+                                                setState(() {
+                                                  heardDisease = value;
+                                                });
+                                              }
+                                            : (s) {},
                                       ),
                                     ),
                                   ],
@@ -736,11 +785,13 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: infectious,
-                                        onChanged:!_status ? (value) {
-                                          setState(() {
-                                            infectious = value;
-                                          });
-                                        } : (s){},
+                                        onChanged: !_status
+                                            ? (value) {
+                                                setState(() {
+                                                  infectious = value;
+                                                });
+                                              }
+                                            : (s) {},
                                       ),
                                     ),
                                   ],
@@ -776,11 +827,13 @@ class MapScreenState extends State<ProfilePage>
                                       child: Checkbox(
                                         activeColor: Colors.red,
                                         value: chronic,
-                                        onChanged: !_status ? (value) {
-                                          setState(() {
-                                            chronic = value;
-                                          });
-                                        } : (s){},
+                                        onChanged: !_status
+                                            ? (value) {
+                                                setState(() {
+                                                  chronic = value;
+                                                });
+                                              }
+                                            : (s) {},
                                       ),
                                     ),
                                   ],
