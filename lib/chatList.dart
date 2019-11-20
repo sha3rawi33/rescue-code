@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rescue_code/chatRoom.dart';
@@ -42,7 +44,7 @@ class _ChatListState extends State<ChatList> {
                     chatId: roomSnapshot.documentID,
                     userUID: userUID,
                     name: doctorName,
-                    
+
                   )));
     } else {
       Map<String, dynamic> chatroomMap = Map<String, dynamic>();
@@ -61,14 +63,7 @@ class _ChatListState extends State<ChatList> {
           });
       DocumentSnapshot chatroomSnapshot = await reference.get();
       print(chatroomSnapshot.data);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChatRoom(
-                    chatId: roomSnapshot.documentID,
-                    userUID: userUID,
-                    name: doctorName,
-                  )));
+      startChatRoom(userUID, doctorUID, doctorName);
     }
   }
 

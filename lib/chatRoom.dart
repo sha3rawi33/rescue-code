@@ -32,15 +32,27 @@ class _ChatRoomState extends State<ChatRoom> {
   final textController = TextEditingController();
   var lat;
   var lng;
+
+  _alertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BeautifulAlertDialog();
+        }
+    );
+  }
   checkNsend() {
     String msg;
-    msg = messageController.text;
+    msg = messageController.text.trim();
 
     // Checking TextField.
-    if (msg.isEmpty || !(msg.length < 2)) {
-      print('Text Field is empty, Please Fill All Data');
-    } else if (!(msg.length < 2) && msg.isNotEmpty && msg != "") {
-      print("Text Field is full");
+    if (msg.isEmpty) {
+      print('✖ Message wasn\'t sent ✖');
+      scrollToEnd();
+      _alertDialog(context);
+    } else if (msg.isNotEmpty && msg != "") {
+      print("Message was sent ✅");
+      scrollToEnd();
       sendMessage(msg);
       _isComposingMessage = false;
     }
@@ -76,8 +88,8 @@ class _ChatRoomState extends State<ChatRoom> {
         "author": authorRef,
         "timestamp": DateTime.now(),
         "value": message,
-        "lat":"",
-        "lng":""
+        "lat": "",
+        "lng": ""
       };
       await chatroomRef.updateData({
         "messages": FieldValue.arrayUnion([serializedMessage])
@@ -90,7 +102,7 @@ class _ChatRoomState extends State<ChatRoom> {
     }
   }
 
-  Future<bool> sendLocation(String lat,String lng) async {
+  Future<bool> sendLocation(String lat, String lng) async {
     try {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
 
@@ -103,8 +115,8 @@ class _ChatRoomState extends State<ChatRoom> {
         "author": authorRef,
         "timestamp": DateTime.now(),
         "value": '',
-        "lat":lat.toString(),
-        "lng":lng.toString()
+        "lat": lat.toString(),
+        "lng": lng.toString()
       };
       await chatroomRef.updateData({
         "messages": FieldValue.arrayUnion([serializedMessage])
@@ -116,6 +128,7 @@ class _ChatRoomState extends State<ChatRoom> {
       return false;
     } 
   }
+
   void getMessages() async {
     var res = await Firestore.instance
         .collection("chats")
@@ -124,6 +137,13 @@ class _ChatRoomState extends State<ChatRoom> {
     setState(() {
       messages = res.data['messages'];
     });
+  }
+
+  ScrollController _scrollController = ScrollController();
+
+  scrollToEnd() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 
   @override
@@ -165,6 +185,7 @@ class _ChatRoomState extends State<ChatRoom> {
             children: <Widget>[
               new Flexible(
                   child: ListView.builder(
+                controller: _scrollController,
                 itemCount: messages == null ? 0 : messages.length,
                 itemBuilder: (context, i) {
                   return ChatMessageListItem(
@@ -175,9 +196,8 @@ class _ChatRoomState extends State<ChatRoom> {
                       name: messages[i]['name'],
                       value: messages[i]['value'],
                       profileImage: profileImage,
-
                       lat: messages[i]['lat'] ?? '',
-                      lng:messages[i]['lng'] ?? '',
+                      lng: messages[i]['lng'] ?? '',
                       type: 'user');
                 },
               )),
@@ -212,7 +232,7 @@ class _ChatRoomState extends State<ChatRoom> {
   IconButton getLocationSendButton() {
     return new IconButton(
       icon: new Icon(Icons.add_location),
-      onPressed:()async {
+      onPressed: () async {
         await getLocation();
         await sendLocation(lat, lng);
       },
@@ -254,5 +274,72 @@ class _ChatRoomState extends State<ChatRoom> {
             ],
           ),
         ));
+  }
+}
+class BeautifulAlertDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.only(right: 16.0),
+          height: 150,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(75),
+                  bottomLeft: Radius.circular(75),
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10)
+              )
+          ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 20.0),
+              CircleAvatar(radius: 55, backgroundColor: Colors.grey.shade200, child: Center(child: Icon(Icons.error, color: Colors.red, size: 110,)),),
+              SizedBox(width: 20.0),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Wasn't sent!", style: TextStyle(fontSize: 20),),
+                    SizedBox(height: 10.0),
+                    Flexible(
+                      child: Text(
+                          "- Message Can't Be Empty",style: TextStyle(fontSize: 14),),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(children: <Widget>[
+//                      Expanded(
+//                        child: RaisedButton(
+//                          child: Text("No"),
+//                          color: Colors.red,
+//                          colorBrightness: Brightness.dark,
+//                          onPressed: (){Navigator.pop(context);},
+//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+//                        ),
+//                      ),
+                      SizedBox(width: 10.0),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text("Ok", style: TextStyle(fontSize: 20),),
+                          color: Colors.green,
+                          colorBrightness: Brightness.dark,
+                          onPressed: (){Navigator.pop(context);},
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                        ),
+                      ),
+                    ],)
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
