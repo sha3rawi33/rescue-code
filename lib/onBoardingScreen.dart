@@ -4,6 +4,8 @@ import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:rescue_code/profilePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'doctorChat.dart';
+
 class OnBoardingScreen extends StatelessWidget {
   final pages = [
     PageViewModel(
@@ -93,12 +95,18 @@ class OnBoardingScreen extends StatelessWidget {
                     await SharedPreferences.getInstance();
 
                 var uid = _prefs.getString("uid");
+                var type = _prefs.getString("type");
 
                 if (uid != null && uid != '') {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfilePage(uid: uid)));
+                  if (type == "doctor") {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => DoctorChat()));
+                  } else {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfilePage(uid: uid)));
+                  }
                 } else {
                   Navigator.pushNamed(context, "landingpage");
                 }

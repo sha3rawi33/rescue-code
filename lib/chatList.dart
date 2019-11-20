@@ -30,7 +30,7 @@ class _ChatListState extends State<ChatList> {
         .where("participants", arrayContains: userRef)
         .getDocuments();
     DocumentReference doctorRef =
-        Firestore.instance.collection("users").document(doctorUID);
+         Firestore.instance.collection("users").document(doctorUID);
     DocumentSnapshot roomSnapshot = queryResults.documents.firstWhere((room) {
       return room.data["participants"].contains(doctorRef);
     }, orElse: () => null);
@@ -52,6 +52,12 @@ class _ChatListState extends State<ChatList> {
       chatroomMap["participants"] = participants;
       DocumentReference reference =
           await Firestore.instance.collection("chats").add(chatroomMap);
+      await Firestore.instance
+          .collection("users")
+          .document(userUID)
+          .updateData({
+            "doctors":FieldValue.arrayUnion([doctorRef])
+          });
       DocumentSnapshot chatroomSnapshot = await reference.get();
       print(chatroomSnapshot.data);
       Navigator.push(

@@ -8,6 +8,8 @@ import 'package:rescue_code/style/theme.dart' as Theme;
 import 'package:rescue_code/style/bubble_indication_painter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'doctorChat.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
@@ -83,11 +85,14 @@ class _LoginPageState extends State<LoginPage>
           .then((DocumentSnapshot result) async {
         if (result.data['type'] == 'doctor') {
           await _prefs.setString("uid", currentUser.user.uid);
+                    await _prefs.setString("name", result.data['name']);
+
+          await _prefs.setString("type", "doctor");
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      ProfilePage(uid: currentUser.user.uid)));
+                      DoctorChat()));
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text('Sorry but your email can\'t be logged in as doctor'),
@@ -589,7 +594,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => login()),
+                    onPressed: () => doctorLogin()),
               ),
             ],
           ),

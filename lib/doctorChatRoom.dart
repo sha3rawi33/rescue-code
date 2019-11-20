@@ -7,21 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:rescue_code/style/chatRoomItems.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ChatRoom extends StatefulWidget {
+class DoctorChatRoom extends StatefulWidget {
   final String chatId;
+  final doctorUID;
   final userUID;
   final String name;
   final type;
-  ChatRoom(
+  DoctorChatRoom(
       {@required this.chatId,
-      @required this.userUID,
+      @required this.doctorUID,
       @required this.name,
+      this.userUID,
       this.type = 'user'});
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
 
-class _ChatRoomState extends State<ChatRoom> {
+class _ChatRoomState extends State<DoctorChatRoom> {
   Timer timer;
   List messages;
   bool _isComposingMessage = false;
@@ -46,7 +48,7 @@ class _ChatRoomState extends State<ChatRoom> {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
 
       DocumentReference authorRef =
-          Firestore.instance.collection("users").document(widget.userUID);
+          Firestore.instance.collection("users").document(widget.doctorUID);
       DocumentReference chatroomRef =
           Firestore.instance.collection("chats").document(widget.chatId);
       Map<String, dynamic> serializedMessage = {
@@ -85,7 +87,7 @@ class _ChatRoomState extends State<ChatRoom> {
       });
       getMessages();
     });
-    getImage();
+   getImage();
   }
 
   @override
@@ -112,11 +114,11 @@ class _ChatRoomState extends State<ChatRoom> {
                       author: messages[i]['author'],
                       userUID: Firestore.instance
                           .collection("users")
-                          .document(widget.userUID),
+                          .document(widget.doctorUID),
                       name: messages[i]['name'],
                       value: messages[i]['value'],
-                      profileImage: profileImage,
-                      type: 'user');
+                     profileImage: profileImage,
+                      type: widget.type);
                 },
               )),
               new Divider(height: 1.0),
