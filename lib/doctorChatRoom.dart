@@ -29,6 +29,24 @@ class _ChatRoomState extends State<DoctorChatRoom> {
   bool _isComposingMessage = false;
   TextEditingController messageController = TextEditingController();
 
+  checkNsend(){
+    String msg;
+
+    msg = messageController.text ;
+
+    // Checking all TextFields.
+    if(msg.isEmpty || msg.length<2)
+    {
+      // Put your code here which you want to execute when Text Field is Empty.
+      print('Text Field is empty, Please Fill All Data');
+
+
+    }else if (msg.isNotEmpty){
+      print("Text Field is full");
+      sendMessage(msg);
+    }
+
+  }
   var profileImage;
   getImage() async {
     try {
@@ -146,7 +164,7 @@ class _ChatRoomState extends State<DoctorChatRoom> {
     return new IconButton(
       icon: new Icon(Icons.send),
       onPressed: _isComposingMessage
-          ? () => sendMessage(messageController.text)
+          ? () => checkNsend()
           : null,
     );
   }
@@ -170,7 +188,7 @@ class _ChatRoomState extends State<DoctorChatRoom> {
                       _isComposingMessage = messageText.length > 0;
                     });
                   },
-                  onSubmitted: (message) => sendMessage(message),
+                  onSubmitted: (message) => _isComposingMessage = false,
                   decoration:
                       new InputDecoration.collapsed(hintText: "Send a message"),
                 ),

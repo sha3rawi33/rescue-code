@@ -12,11 +12,13 @@ class ChatRoom extends StatefulWidget {
   final userUID;
   final String name;
   final type;
+
   ChatRoom(
       {@required this.chatId,
       @required this.userUID,
       @required this.name,
       this.type = 'user'});
+
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
@@ -26,8 +28,24 @@ class _ChatRoomState extends State<ChatRoom> {
   List messages;
   bool _isComposingMessage = false;
   TextEditingController messageController = TextEditingController();
+  final textController = TextEditingController();
+
+  checkNsend() {
+    String msg;
+    msg = messageController.text;
+
+    // Checking TextField.
+    if (msg.isEmpty || !(msg.length < 2)) {
+      print('Text Field is empty, Please Fill All Data');
+    } else if (!(msg.length < 2) && msg.isNotEmpty && msg != "") {
+      print("Text Field is full");
+      sendMessage(msg);
+      _isComposingMessage = false;
+    }
+  }
 
   var profileImage;
+
   getImage() async {
     try {
       StorageReference reference =
@@ -143,9 +161,7 @@ class _ChatRoomState extends State<ChatRoom> {
   IconButton getDefaultSendButton() {
     return new IconButton(
       icon: new Icon(Icons.send),
-      onPressed: _isComposingMessage
-          ? () => sendMessage(messageController.text)
-          : null,
+      onPressed: _isComposingMessage ? () => checkNsend() : null,
     );
   }
 
@@ -168,7 +184,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       _isComposingMessage = messageText.length > 0;
                     });
                   },
-                  onSubmitted: (message) => sendMessage(message),
+                  onSubmitted: (message) => checkNsend(),
                   decoration:
                       new InputDecoration.collapsed(hintText: "Send a message"),
                 ),
