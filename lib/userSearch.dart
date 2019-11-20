@@ -115,6 +115,9 @@ class _UserSearchState extends State<UserSearch> {
         });
       } catch (e) {
         print(e);
+        setState(() {
+          profileImage = null;
+        });
       }
       setState(() {});
       _searchController.clear();
