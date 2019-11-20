@@ -136,7 +136,9 @@ class _ChatRoomState extends State<DoctorChatRoom> {
                       name: messages[i]['name'],
                       value: messages[i]['value'],
                      profileImage: profileImage,
-                      type: widget.type);
+                      type: widget.type,
+                    lat:  messages[i]['lat'] ?? '',
+                    lng:messages[i]['lng']?? '',);
                 },
               )),
               new Divider(height: 1.0),

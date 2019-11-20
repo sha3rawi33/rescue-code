@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rescue_code/style/chatRoomItems.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +30,8 @@ class _ChatRoomState extends State<ChatRoom> {
   bool _isComposingMessage = false;
   TextEditingController messageController = TextEditingController();
   final textController = TextEditingController();
-
+  var lat;
+  var lng;
   checkNsend() {
     String msg;
     msg = messageController.text;
@@ -71,7 +73,9 @@ class _ChatRoomState extends State<ChatRoom> {
         "name": _prefs.getString('name'),
         "author": authorRef,
         "timestamp": DateTime.now(),
-        "value": message
+        "value": message,
+        "lat":"",
+        "lng":""
       };
       await chatroomRef.updateData({
         "messages": FieldValue.arrayUnion([serializedMessage])
@@ -84,6 +88,32 @@ class _ChatRoomState extends State<ChatRoom> {
     }
   }
 
+  Future<bool> sendLocation(String lat,String lng) async {
+    try {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+      DocumentReference authorRef =
+          Firestore.instance.collection("users").document(widget.userUID);
+      DocumentReference chatroomRef =
+          Firestore.instance.collection("chats").document(widget.chatId);
+      Map<String, dynamic> serializedMessage = {
+        "name": _prefs.getString('name'),
+        "author": authorRef,
+        "timestamp": DateTime.now(),
+        "value": '',
+        "lat":lat.toString(),
+        "lng":lng.toString()
+      };
+      await chatroomRef.updateData({
+        "messages": FieldValue.arrayUnion([serializedMessage])
+      });
+      messageController.clear();
+      return true;
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
   void getMessages() async {
     var res = await Firestore.instance
         .collection("chats")
@@ -112,6 +142,16 @@ class _ChatRoomState extends State<ChatRoom> {
     super.dispose();
   }
 
+  Future getLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      lat = position.latitude.toString();
+      lng = position.longitude.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,6 +174,9 @@ class _ChatRoomState extends State<ChatRoom> {
                       name: messages[i]['name'],
                       value: messages[i]['value'],
                       profileImage: profileImage,
+
+                      lat: messages[i]['lat'] ?? '',
+                      lng:messages[i]['lng'] ?? '',
                       type: 'user');
                 },
               )),
@@ -165,6 +208,16 @@ class _ChatRoomState extends State<ChatRoom> {
     );
   }
 
+  IconButton getLocationSendButton() {
+    return new IconButton(
+      icon: new Icon(Icons.add_location),
+      onPressed:()async {
+        await getLocation();
+        await sendLocation(lat, lng);
+      },
+    );
+  }
+
   Widget _buildTextComposer() {
     return new IconTheme(
         data: new IconThemeData(
@@ -192,6 +245,10 @@ class _ChatRoomState extends State<ChatRoom> {
               new Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: getDefaultSendButton(),
+              ),
+              new Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: getLocationSendButton(),
               ),
             ],
           ),

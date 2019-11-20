@@ -42,6 +42,7 @@ class _ChatListState extends State<ChatList> {
                     chatId: roomSnapshot.documentID,
                     userUID: userUID,
                     name: doctorName,
+                    
                   )));
     } else {
       Map<String, dynamic> chatroomMap = Map<String, dynamic>();

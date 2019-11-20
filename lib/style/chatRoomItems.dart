@@ -7,14 +7,17 @@ class ChatMessageListItem extends StatefulWidget {
   final String value;
   final String profileImage;
   final type;
-
+  final lat;
+  final lng;
   ChatMessageListItem(
       {this.name,
       this.author,
       this.userUID,
       this.value,
       this.profileImage,
-      this.type});
+      this.type,
+      this.lat,
+      this.lng});
 
   @override
   _ChatMessageListItemState createState() => _ChatMessageListItemState();
@@ -42,19 +45,33 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width -
-                    MediaQuery.of(context).size.width / 3,
-                padding: EdgeInsets.all(4),
-                child: new Text(widget.value,
-                    style: new TextStyle(
-                      fontSize: 19.5,
-                      color: Colors.white,
-                    )),
-              ),
+              widget.lat == ''
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(10)),
+                      width: MediaQuery.of(context).size.width -
+                          MediaQuery.of(context).size.width / 3,
+                      padding: EdgeInsets.all(4),
+                      child: new Text(widget.value,
+                          style: new TextStyle(
+                            fontSize: 19.5,
+                            color: Colors.white,
+                          )),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(10)),
+                      width: MediaQuery.of(context).size.width -
+                          MediaQuery.of(context).size.width / 3,
+                      padding: EdgeInsets.all(4),
+                      child: new Text(widget.lat.toString() + ", " + widget.lng.toString(),
+                          style: new TextStyle(
+                            fontSize: 19.5,
+                            color: Colors.white,
+                          )),
+                    ),
               SizedBox(
                 width: 5,
               ),
@@ -103,26 +120,45 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
               SizedBox(
                 width: 5,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width -
-                    MediaQuery.of(context).size.width / 3,
-                decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(4),
-                child: new Text(
-                  widget.value,
-                  style: new TextStyle(
-                    fontSize: 19.5,
-                    color: Colors.white,
-                  ),
-                  maxLines: 99,
-                  overflow: TextOverflow.ellipsis,
+              widget.lat == ""
+                  ? Container(
+                      width: MediaQuery.of(context).size.width -
+                          MediaQuery.of(context).size.width / 3,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[600],
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: EdgeInsets.all(4),
+                      child: new Text(
+                        widget.value,
+                        style: new TextStyle(
+                          fontSize: 19.5,
+                          color: Colors.white,
+                        ),
+                        maxLines: 99,
+                        overflow: TextOverflow.ellipsis,
 //                      textAlign: TextAlign.justify,
 //                    textDirection: TextDirection.ltr,
-                ),
-              ),
-              Divider()
+                      ),
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width -
+                          MediaQuery.of(context).size.width / 3,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[600],
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: EdgeInsets.all(4),
+                      child: new Text(
+                        widget.lat.toString() + ", " + widget.lng.toString(),
+                        style: new TextStyle(
+                          fontSize: 19.5,
+                          color: Colors.white,
+                        ),
+                        maxLines: 99,
+                        overflow: TextOverflow.ellipsis,
+//                      textAlign: TextAlign.justify,
+//                    textDirection: TextDirection.ltr,
+                      ),
+                    ),
             ],
           ),
         ),

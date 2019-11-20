@@ -57,6 +57,7 @@ class _DoctorChatState extends State<DoctorChat> {
                     doctorUID: doctorUID,
                     name: userName,
                     type: 'doctor',
+                    
                   )));
     }
   }
