@@ -89,7 +89,7 @@ class _ChatListState extends State<ChatList> {
           return Column(children: [
             ListTile(
               title: Text(doctors[i]['name']),
-              subtitle: Text(doctors[i]['government']),
+              subtitle: Text(doctors[i]['government']??""),
               //  onTap: (){},
               trailing: IconButton(
                 icon: Icon(
