@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rescue_code/doctorChatRoom.dart';
+import 'package:rescue_code/userSearch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -57,7 +58,7 @@ class _DoctorChatState extends State<DoctorChat> {
                     doctorUID: doctorUID,
                     name: userName,
                     type: 'doctor',
-                    
+
                   )));
     }
   }
@@ -83,6 +84,14 @@ class _DoctorChatState extends State<DoctorChat> {
 
               Navigator.pushReplacementNamed(context, 'boarding');
             },
+          ),
+          IconButton(
+            icon: Icon(Icons.navigate_next),
+            onPressed: () async {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context)=> UserSearch()
+              ));
+            },
           )
         ],
         title: Text('Users'),
@@ -104,7 +113,7 @@ class _DoctorChatState extends State<DoctorChat> {
               ),
             ),
             title: Text(users[i]['name']),
-            subtitle: Text(users[i]['government']),
+            subtitle: Text(users[i]['government'] ?? ''),
           );
         },
       ),
