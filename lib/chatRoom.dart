@@ -62,6 +62,8 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Future<bool> sendMessage(String message) async {
+    //  if (message.trim() != '') {
+
     try {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
 
@@ -112,7 +114,7 @@ class _ChatRoomState extends State<ChatRoom> {
     } catch (e) {
       print('Error: $e');
       return false;
-    }
+    } 
   }
   void getMessages() async {
     var res = await Firestore.instance

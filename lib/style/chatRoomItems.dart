@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatMessageListItem extends StatefulWidget {
   final name;
@@ -60,17 +62,32 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                           )),
                     )
                   : Container(
+                      width: 250,
+                      height: 150,
                       decoration: BoxDecoration(
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(10)),
-                      width: MediaQuery.of(context).size.width -
-                          MediaQuery.of(context).size.width / 3,
                       padding: EdgeInsets.all(4),
-                      child: new Text(widget.lat.toString() + ", " + widget.lng.toString(),
-                          style: new TextStyle(
-                            fontSize: 19.5,
-                            color: Colors.white,
-                          )),
+                      child: GoogleMap(
+                        onTap: (position) {
+                          launch(
+                              "google.navigation:q=${double.parse(widget.lat)},${double.parse(widget.lng)}");
+                        },
+                        markers: {
+                          Marker(
+                              onTap: () {
+                                launch(
+                                    "google.navigation:q=${double.parse(widget.lat)},${double.parse(widget.lng)}");
+                              },
+                              markerId: MarkerId(widget.author.toString()),
+                              position: LatLng(double.parse(widget.lat),
+                                  double.parse(widget.lng)))
+                        },
+                        initialCameraPosition: CameraPosition(
+                            zoom: 14,
+                            target: LatLng(double.parse(widget.lat),
+                                double.parse(widget.lng))),
+                      ),
                     ),
               SizedBox(
                 width: 5,
@@ -141,22 +158,31 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                       ),
                     )
                   : Container(
-                      width: MediaQuery.of(context).size.width -
-                          MediaQuery.of(context).size.width / 3,
+                      width: 250,
+                      height: 150,
                       decoration: BoxDecoration(
                           color: Colors.grey[600],
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(4),
-                      child: new Text(
-                        widget.lat.toString() + ", " + widget.lng.toString(),
-                        style: new TextStyle(
-                          fontSize: 19.5,
-                          color: Colors.white,
-                        ),
-                        maxLines: 99,
-                        overflow: TextOverflow.ellipsis,
-//                      textAlign: TextAlign.justify,
-//                    textDirection: TextDirection.ltr,
+                      child: GoogleMap(
+                        onTap: (position) {
+                          launch(
+                              "google.navigation:q=${double.parse(widget.lat)},${double.parse(widget.lng)}");
+                        },
+                        markers: {
+                          Marker(
+                              onTap: () {
+                                launch(
+                                    "google.navigation:q=${double.parse(widget.lat)},${double.parse(widget.lng)}");
+                              },
+                              markerId: MarkerId(widget.author.toString()),
+                              position: LatLng(double.parse(widget.lat),
+                                  double.parse(widget.lng)))
+                        },
+                        initialCameraPosition: CameraPosition(
+                            zoom: 14,
+                            target: LatLng(double.parse(widget.lat),
+                                double.parse(widget.lng))),
                       ),
                     ),
             ],
