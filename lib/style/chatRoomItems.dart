@@ -7,6 +7,7 @@ class ChatMessageListItem extends StatefulWidget {
   final String value;
   final String profileImage;
   final type;
+
   ChatMessageListItem(
       {this.name,
       this.author,
@@ -45,6 +46,7 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                 decoration: BoxDecoration(
                     color: Colors.redAccent,
                     borderRadius: BorderRadius.circular(10)),
+                width: MediaQuery.of(context).size.width - 80,
                 padding: EdgeInsets.all(4),
                 child: new Text(widget.value,
                     style: new TextStyle(
@@ -57,15 +59,14 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
               ),
               if (widget.type == 'user') ...[
                 new CircleAvatar(
-                  backgroundImage:
-                      widget.profileImage == null
-                          ? new ExactAssetImage('assets/profilepic.png')
-                          : NetworkImage(widget.profileImage),
+                  backgroundImage: widget.profileImage == null
+                      ? new ExactAssetImage('assets/profilepic.png')
+                      : NetworkImage(widget.profileImage),
                   radius: 17,
                 )
-              ] else ... [
+              ] else ...[
                 new CircleAvatar(
-                  backgroundImage:new ExactAssetImage('assets/profilepic.png'),
+                  backgroundImage: new ExactAssetImage('assets/profilepic.png'),
                   radius: 17,
                 )
               ]
@@ -87,15 +88,14 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
             children: <Widget>[
               if (widget.type != 'user') ...[
                 new CircleAvatar(
-                  backgroundImage:
-                      widget.profileImage == null
-                          ? new ExactAssetImage('assets/profilepic.png')
-                          : NetworkImage(widget.profileImage),
+                  backgroundImage: widget.profileImage == null
+                      ? new ExactAssetImage('assets/profilepic.png')
+                      : NetworkImage(widget.profileImage),
                   radius: 17,
                 )
-              ] else ... [
+              ] else ...[
                 new CircleAvatar(
-                  backgroundImage:new ExactAssetImage('assets/profilepic.png'),
+                  backgroundImage: new ExactAssetImage('assets/profilepic.png'),
                   radius: 17,
                 )
               ],
@@ -103,15 +103,22 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                 width: 5,
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 80,
                 decoration: BoxDecoration(
                     color: Colors.grey[600],
                     borderRadius: BorderRadius.circular(10)),
                 padding: EdgeInsets.all(4),
-                child: new Text(widget.value,
-                    style: new TextStyle(
-                      fontSize: 19.5,
-                      color: Colors.white,
-                    )),
+                child: new Text(
+                  widget.value,
+                  style: new TextStyle(
+                    fontSize: 19.5,
+                    color: Colors.white,
+                  ),
+                  maxLines: 99,
+                  overflow: TextOverflow.ellipsis,
+//                      textAlign: TextAlign.justify,
+//                    textDirection: TextDirection.ltr,
+                ),
               ),
               Divider()
             ],
