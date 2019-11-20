@@ -155,7 +155,6 @@ class _ChatRoomState extends State<ChatRoom> {
     });
     getImage();
   }
-
   @override
   void dispose() {
     timer?.cancel();
