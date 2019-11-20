@@ -46,7 +46,8 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                 decoration: BoxDecoration(
                     color: Colors.redAccent,
                     borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width - 80,
+                width: MediaQuery.of(context).size.width -
+                    MediaQuery.of(context).size.width / 3,
                 padding: EdgeInsets.all(4),
                 child: new Text(widget.value,
                     style: new TextStyle(
@@ -103,7 +104,8 @@ class _ChatMessageListItemState extends State<ChatMessageListItem> {
                 width: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 80,
+                width: MediaQuery.of(context).size.width -
+                    MediaQuery.of(context).size.width / 3,
                 decoration: BoxDecoration(
                     color: Colors.grey[600],
                     borderRadius: BorderRadius.circular(10)),
