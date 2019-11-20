@@ -13,12 +13,14 @@ class DoctorChatRoom extends StatefulWidget {
   final userUID;
   final String name;
   final type;
+
   DoctorChatRoom(
       {@required this.chatId,
       @required this.doctorUID,
       @required this.name,
       this.userUID,
       this.type = 'user'});
+
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
@@ -29,25 +31,40 @@ class _ChatRoomState extends State<DoctorChatRoom> {
   bool _isComposingMessage = false;
   TextEditingController messageController = TextEditingController();
 
-  checkNsend(){
-    String msg;
-
-    msg = messageController.text ;
-
-    // Checking all TextFields.
-    if(msg.isEmpty || msg.length<2)
-    {
-      // Put your code here which you want to execute when Text Field is Empty.
-      print('Text Field is empty, Please Fill All Data');
-
-
-    }else if (msg.isNotEmpty){
-      print("Text Field is full");
-      sendMessage(msg);
-    }
-
+  _alertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BeautifulAlertDialog();
+        });
   }
+
+  checkNsend() {
+    String msg;
+    msg = messageController.text.trim();
+
+    // Checking TextField.
+    if (msg.isEmpty) {
+      print('✖ Message wasn\'t sent ✖');
+      scrollToEnd();
+      _alertDialog(context);
+    } else if (msg.isNotEmpty && msg != "") {
+      print("Message was sent ✅");
+      scrollToEnd();
+      sendMessage(msg);
+      _isComposingMessage = false;
+    }
+  }
+
+  ScrollController _scrollController = ScrollController();
+
+  scrollToEnd() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+  }
+
   var profileImage;
+
   getImage() async {
     try {
       StorageReference reference =
@@ -105,7 +122,7 @@ class _ChatRoomState extends State<DoctorChatRoom> {
       });
       getMessages();
     });
-   getImage();
+    getImage();
   }
 
   @override
@@ -126,19 +143,21 @@ class _ChatRoomState extends State<DoctorChatRoom> {
             children: <Widget>[
               new Flexible(
                   child: ListView.builder(
+                controller: _scrollController,
                 itemCount: messages == null ? 0 : messages.length,
                 itemBuilder: (context, i) {
                   return ChatMessageListItem(
-                      author: messages[i]['author'],
-                      userUID: Firestore.instance
-                          .collection("users")
-                          .document(widget.doctorUID),
-                      name: messages[i]['name'],
-                      value: messages[i]['value'],
-                     profileImage: profileImage,
-                      type: widget.type,
-                    lat:  messages[i]['lat'] ?? '',
-                    lng:messages[i]['lng']?? '',);
+                    author: messages[i]['author'],
+                    userUID: Firestore.instance
+                        .collection("users")
+                        .document(widget.doctorUID),
+                    name: messages[i]['name'],
+                    value: messages[i]['value'],
+                    profileImage: profileImage,
+                    type: widget.type,
+                    lat: messages[i]['lat'] ?? '',
+                    lng: messages[i]['lng'] ?? '',
+                  );
                 },
               )),
               new Divider(height: 1.0),
@@ -165,9 +184,7 @@ class _ChatRoomState extends State<DoctorChatRoom> {
   IconButton getDefaultSendButton() {
     return new IconButton(
       icon: new Icon(Icons.send),
-      onPressed: _isComposingMessage
-          ? () => checkNsend()
-          : null,
+      onPressed: _isComposingMessage ? () => checkNsend() : null,
     );
   }
 
@@ -202,5 +219,73 @@ class _ChatRoomState extends State<DoctorChatRoom> {
             ],
           ),
         ));
+  }
+}
+
+class BeautifulAlertDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.only(right: 16.0),
+          height: 150,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(75),
+                  bottomLeft: Radius.circular(75),
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10)
+              )
+          ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 20.0),
+              CircleAvatar(radius: 55, backgroundColor: Colors.grey.shade200, child: Center(child: Icon(Icons.error, color: Colors.red, size: 110,)),),
+              SizedBox(width: 20.0),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Wasn't sent!", style: TextStyle(fontSize: 20),),
+                    SizedBox(height: 10.0),
+                    Flexible(
+                      child: Text(
+                        "- Message Can't Be Empty",style: TextStyle(fontSize: 14),),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(children: <Widget>[
+//                      Expanded(
+//                        child: RaisedButton(
+//                          child: Text("No"),
+//                          color: Colors.red,
+//                          colorBrightness: Brightness.dark,
+//                          onPressed: (){Navigator.pop(context);},
+//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+//                        ),
+//                      ),
+                      SizedBox(width: 10.0),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text("Ok", style: TextStyle(fontSize: 20),),
+                          color: Colors.green,
+                          colorBrightness: Brightness.dark,
+                          onPressed: (){Navigator.pop(context);},
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                        ),
+                      ),
+                    ],)
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

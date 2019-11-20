@@ -54,6 +54,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
         child: Center(
           child: Column(
             children: <Widget>[
+              SizedBox(width: 20,height: 100,),
               AvatarGlow(
                 endRadius: 90,
                 duration: Duration(seconds: 2),
