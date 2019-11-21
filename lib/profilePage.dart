@@ -162,7 +162,7 @@ class MapScreenState extends State<ProfilePage>
   Widget build(BuildContext context) {
     return new Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => Navigator.pushNamed(context, "doctors"),
           // The Chat Screen // Report,
           child: Icon(
             Icons.report_problem,

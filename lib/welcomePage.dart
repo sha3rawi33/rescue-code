@@ -132,6 +132,25 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
               SizedBox(
                 height: 50.0,
               ),
+              DelayedAnimation(
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "PLEBITS LLC 2019",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                            fontFamily: "customFont",
+                            color: color),
+                      ),
+                      Icon(Icons.copyright, color: Colors.white, size: 20,)
+                    ],
+                  ),
+                ),
+                delay: delayedAmount + 1000,
+              ),
             ],
           ),
         ),
@@ -160,6 +179,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
           ),
         ),
   );
+
 
   void _onTapDown(TapDownDetails details) {
     _controller.forward();
