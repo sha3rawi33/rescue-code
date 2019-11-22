@@ -8,6 +8,7 @@ import 'onBoardingScreen.dart';
 import 'welcomePage.dart';
 
 void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
       title: "RescueCode",
       home: new Scaffold(
         body: WelcomePage(),
@@ -18,6 +19,6 @@ void main() => runApp(MaterialApp(
         "landingpage": (context) => new LandingPage(),
         "ambulance": (context) => new EmergencyDashboard(),
         "boarding": (context) => new OnBoardingScreen(),
-        "doctors":(context)=> ChatList()
+        "doctors":(context)=> ChatList(),
       },
     ));

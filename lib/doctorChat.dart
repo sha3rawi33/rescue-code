@@ -86,7 +86,7 @@ class _DoctorChatState extends State<DoctorChat> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.navigate_next),
+            icon: Icon(Icons.search),
             onPressed: () async {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context)=> UserSearch()
