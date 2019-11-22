@@ -108,7 +108,7 @@ class _ChatListState extends State<ChatList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctors'),
+        title: Text('Hospitals'),
         centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),

@@ -12,7 +12,11 @@ class _UserSearchState extends State<UserSearch> {
   TextEditingController _searchController = TextEditingController();
   bool _status = true;
   bool dropDownStatus = false;
-
+  TextEditingController diabetesController = TextEditingController();
+  TextEditingController bloodPresureController = TextEditingController();
+  TextEditingController heardDiseaseController = TextEditingController();
+  TextEditingController infectiousController = TextEditingController();
+  TextEditingController chronicController = TextEditingController();
   final FocusNode myFocusNode = FocusNode();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -21,11 +25,11 @@ class _UserSearchState extends State<UserSearch> {
   TextEditingController nationalId = TextEditingController();
   String id = '';
   String selectedGender = 'Male';
-  bool diabetes = false;
-  bool bloodPresure = false;
-  bool heardDisease = false;
-  bool infectious = false;
-  bool chronic = false;
+  dynamic diabetes = false;
+  dynamic bloodPresure = false;
+  dynamic heardDisease = false;
+  dynamic infectious = false;
+  dynamic chronic = false;
 
   var bloodTypes = <String>[
     "A+",
@@ -105,6 +109,18 @@ class _UserSearchState extends State<UserSearch> {
               ? result['heartDisease']
               : false;
       id = result['id'];
+      setState(() {
+      chronicController = TextEditingController(
+          text: chronic.toString() == "false" ? '' : chronic);
+      diabetesController = TextEditingController(
+          text: diabetes.toString() == "false" ? '' : diabetes);
+      bloodPresureController = TextEditingController(
+          text: bloodPresure.toString() == "false" ? '' : bloodPresure);
+      heardDiseaseController = TextEditingController(
+          text: heardDisease.toString() == "false" ? '' : heardDisease);
+      infectiousController = TextEditingController(
+          text: infectious.toString() == "false" ? '' : infectious);
+    });
       try {
         final ref = FirebaseStorage.instance
             .ref()
@@ -645,221 +661,299 @@ class _UserSearchState extends State<UserSearch> {
                                           ),
                                         ],
                                       )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              new Text(
-                                                'Diabetes',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Flexible(
-                                            child: Checkbox(
-                                              value: diabetes,
-                                              activeColor: Colors.red,
-                                              onChanged: !_status
-                                                  ? (value) {
-                                                      setState(() {
-                                                        diabetes = value;
-                                                      });
-                                                    }
-                                                  : (s) {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              new Text(
-                                                'Blood Pressure',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Flexible(
-                                            child: Checkbox(
-                                              value: bloodPresure,
-                                              activeColor: Colors.red,
-                                              onChanged: !_status
-                                                  ? (value) {
-                                                      setState(() {
-                                                        bloodPresure = value;
-                                                      });
-                                                    }
-                                                  : (s) {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              new Text(
-                                                'Heart Disease',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Flexible(
-                                            child: Checkbox(
-                                              activeColor: Colors.red,
-                                              value: heardDisease,
-                                              onChanged: !_status
-                                                  ? (value) {
-                                                      setState(() {
-                                                        heardDisease = value;
-                                                      });
-                                                    }
-                                                  : (s) {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              new Text(
-                                                'Any Infectious Disease',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Flexible(
-                                            child: Checkbox(
-                                              activeColor: Colors.red,
-                                              value: infectious,
-                                              onChanged: !_status
-                                                  ? (value) {
-                                                      setState(() {
-                                                        infectious = value;
-                                                      });
-                                                    }
-                                                  : (s) {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              new Text(
-                                                'Any chronic disease',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
-                                      child: new Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          new Flexible(
-                                            child: Checkbox(
-                                              activeColor: Colors.red,
-                                              value: chronic,
-                                              onChanged: !_status
-                                                  ? (value) {
-                                                      setState(() {
-                                                        chronic = value;
-                                                      });
-                                                    }
-                                                  : (s) {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                                Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Diabetes',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Checkbox(
+                                        value: diabetes != false ? true : false,
+                                        activeColor: Colors.red,
+                                        onChanged: !_status
+                                            ? (value) {
+                                                if (value == false) {
+                                                  diabetes = false;
+                                                  setState(() {});
+                                                } else {
+                                                  setState(() {
+                                                    diabetes =
+                                                        diabetesController.text;
+                                                  });
+                                                }
+                                              }
+                                            : (s) {},
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: diabetesController,
+                                        decoration: const InputDecoration(
+                                            hintText: "Diabetes"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Blood Pressure',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Checkbox(
+                                        value: bloodPresure != false
+                                            ? true
+                                            : false,
+                                        activeColor: Colors.red,
+                                        onChanged: !_status
+                                            ? (value) {
+                                                if (value == false) {
+                                                  bloodPresure = false;
+                                                  setState(() {});
+                                                } else {
+                                                  setState(() {
+                                                    bloodPresure =
+                                                        bloodPresureController
+                                                            .text;
+                                                  });
+                                                }
+                                              }
+                                            : (s) {},
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: bloodPresureController,
+                                        decoration: const InputDecoration(
+                                            hintText: "Blood Pressure"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Heart Disease',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Checkbox(
+                                        value: heardDisease != false
+                                            ? true
+                                            : false,
+                                        activeColor: Colors.red,
+                                        onChanged: !_status
+                                            ? (value) {
+                                                if (value == false) {
+                                                  heardDisease = false;
+                                                  setState(() {});
+                                                } else {
+                                                  setState(() {
+                                                    heardDisease =
+                                                        heardDiseaseController
+                                                            .text;
+                                                  });
+                                                }
+                                              }
+                                            : (s) {},
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: heardDiseaseController,
+                                        decoration: const InputDecoration(
+                                            hintText: "Heart Disease"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Any Infectious Disease',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Checkbox(
+                                        value:
+                                            infectious != false ? true : false,
+                                        activeColor: Colors.red,
+                                        onChanged: !_status
+                                            ? (value) {
+                                                if (value == false) {
+                                                  infectious = false;
+                                                  setState(() {});
+                                                } else {
+                                                  setState(() {
+                                                    infectious =
+                                                        infectiousController
+                                                            .text;
+                                                  });
+                                                }
+                                              }
+                                            : (s) {},
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: infectiousController,
+                                        decoration: const InputDecoration(
+                                            hintText: "Infectious disease"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 25.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        new Text(
+                                          'Any chronic disease',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 2.0),
+                                child: new Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      child: Checkbox(
+                                        value: chronic != false ? true : false,
+                                        activeColor: Colors.red,
+                                        onChanged: !_status
+                                            ? (value) {
+                                                if (value == false) {
+                                                  chronic = false;
+                                                  setState(() {});
+                                                } else {
+                                                  setState(() {
+                                                    chronic =
+                                                        chronicController.text;
+                                                  });
+                                                }
+                                              }
+                                            : (s) {},
+                                      ),
+                                    ),
+                                    new Flexible(
+                                      child: new TextField(
+                                        controller: chronicController,
+                                        decoration: const InputDecoration(
+                                            hintText: "Any chronic disease"),
+                                        enabled: !_status,
+                                      ),
+                                    ),
+                                  ],
+                                )),
                                   Padding(
                                       padding: EdgeInsets.only(
                                           left: 25.0, right: 25.0, top: 25.0),

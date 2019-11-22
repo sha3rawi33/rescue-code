@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SideDraw extends StatelessWidget {
   final name;
-
-  SideDraw(this.name);
+  final profilePicture;
+  SideDraw(this.name, this.profilePicture);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,9 @@ class SideDraw extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: const Color(0xff7c94b6),
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/profilepic.png'),
+                        image: profilePicture == null
+                            ? new ExactAssetImage('assets/profilepic.png')
+                            : NetworkImage(profilePicture),
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(
@@ -79,8 +81,8 @@ class SideDraw extends StatelessWidget {
               size: 30,
               color: Colors.red,
             ),
-            title: Text("Doctors"),
-            subtitle: Text("To Call Doctors"),
+            title: Text("Hospital"),
+            subtitle: Text("To Find nearest hospitals"),
             onTap: () {
               Navigator.pushNamed(context, 'doctors');
             },
@@ -109,8 +111,7 @@ class SideDraw extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove("uid");
               Navigator.pushReplacementNamed(context, 'boarding');
-              },
-
+            },
           ),
         ],
       ),
