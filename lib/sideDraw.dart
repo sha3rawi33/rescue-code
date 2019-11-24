@@ -19,7 +19,7 @@ class SideDraw extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'profile');
+                Navigator.pushNamed(context, "profile");
               },
               child: Column(
                 children: <Widget>[
@@ -60,7 +60,7 @@ class SideDraw extends StatelessWidget {
             title: Text("Profile"),
             subtitle: Text("Check Your Profile and health details."),
             onTap: () {
-              Navigator.pushNamed(context, 'profile');
+              Navigator.pushNamed(context, "profile");
             },
           ),
           ListTile(
@@ -81,8 +81,8 @@ class SideDraw extends StatelessWidget {
               size: 30,
               color: Colors.red,
             ),
-            title: Text("Hospital"),
-            subtitle: Text("To Find nearest hospitals"),
+            title: Text("Nearest Hospitals"),
+            subtitle: Text("To contact with the nearest hospitals"),
             onTap: () {
               Navigator.pushNamed(context, 'doctors');
             },
@@ -96,7 +96,7 @@ class SideDraw extends StatelessWidget {
             title: Text("About Us "),
             subtitle: Text("About the capstone group."),
             onTap: () {
-              Navigator.pushNamed(context, 'history');
+              Navigator.pushNamed(context, 'about');
             },
           ),
           ListTile(
