@@ -47,7 +47,8 @@ class AboutUs extends StatelessWidget {
                     fontSize: 30,
                     fontFamily: "customFont",
                     fontWeight: FontWeight.w900,
-                    wordSpacing: -7, color: Colors.blue.shade800),
+                    wordSpacing: -7,
+                    color: Colors.blue.shade800),
               ),
               Image.asset(
                 "assets/logo.png",
@@ -56,9 +57,10 @@ class AboutUs extends StatelessWidget {
               Text(
                 "Capstone Group details:",
                 style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -70,15 +72,27 @@ class AboutUs extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Colors.blue.shade900),
               ),
-              // TODO: Add this shit hahahha
-//              School logo => image
-//              School name => text(ALEXANDRIA STEM SCHOOL)
-//            team members => text size كبيرc
-//            member 1 => text صغير
-//            member 2 => text 2 صغير
-//            member 3 => text 3 صغير
-//            Plebits LLC 2019 icon(copyright) => small text in the bottom
-//
+              SizedBox(
+                height: 100,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "by PLEBITS LLC 2019",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontFamily: "customFont",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.copyright,
+                    size: 17,
+                    color: Colors.red,
+                  ),
+                ],
+              ),
             ],
           ),
         ],
