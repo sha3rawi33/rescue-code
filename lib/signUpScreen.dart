@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage>
   // Firebase Instances
   var databaseInstance = Firestore.instance;
   var authInstance = FirebaseAuth.instance;
-  void createUser() async {
+  createUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     
       await authInstance
@@ -338,7 +338,41 @@ class _SignUpPageState extends State<SignUpPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => createUser()),
+                    onPressed: () {
+                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                        duration: new Duration(seconds: 8),
+                        content: new Row(
+                          children: <Widget>[
+                            new CircularProgressIndicator(),
+                            new Text("  Signing-Up...", style: TextStyle(color: Colors.white),)
+                          ],
+                        ),
+                      ));
+                      createUser().whenComplete(() {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          backgroundColor: Colors.red,
+                          duration: new Duration(seconds: 3),
+                          content: new Row(
+                            children: <Widget>[
+                              new Icon(
+                                Icons.error,
+                                size: 40,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width/3,
+                                child: new Text(
+                                  "Erorr check your input or the internet connection and try again!",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        ));
+                      });
+                    }),
               ),
             ],
           ),

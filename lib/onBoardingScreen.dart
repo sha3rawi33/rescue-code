@@ -41,7 +41,7 @@ class OnBoardingScreen extends StatelessWidget {
       title: Container(),
       body: Column(
         children: <Widget>[
-          Text('Uniqe Rescue code',
+          Text('Unique Rescue code',
               style:
                   TextStyle(fontWeight: FontWeight.w900, color: Colors.white)),
           Text(

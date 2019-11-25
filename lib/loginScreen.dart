@@ -41,13 +41,13 @@ class _LoginPageState extends State<LoginPage>
   Color left = Colors.black;
   Color right = Colors.white;
 
-  void login() async {
+  login() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     FirebaseAuth.instance
         .signInWithEmailAndPassword(
-            email: loginEmailController.text,
-            password: loginPasswordController.text)
+            email: loginEmailController.text.trim().toString(),
+            password: loginPasswordController.text.trim().toString())
         .then((currentUser) {
       Firestore.instance
           .collection("users")
@@ -75,8 +75,8 @@ class _LoginPageState extends State<LoginPage>
 
     FirebaseAuth.instance
         .signInWithEmailAndPassword(
-            email: loginEmailController.text,
-            password: loginPasswordController.text)
+            email: loginEmailController.text.trim().toString(),
+            password: loginPasswordController.text.trim().toString())
         .then((currentUser) {
       Firestore.instance
           .collection("users")
@@ -85,14 +85,11 @@ class _LoginPageState extends State<LoginPage>
           .then((DocumentSnapshot result) async {
         if (result.data['type'] == 'doctor') {
           await _prefs.setString("uid", currentUser.user.uid);
-                    await _prefs.setString("name", result.data['name']);
+          await _prefs.setString("name", result.data['name']);
 
           await _prefs.setString("type", "doctor");
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      DoctorChat()));
+              context, MaterialPageRoute(builder: (context) => DoctorChat()));
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text('Sorry but your email can\'t be logged in as doctor'),
@@ -254,7 +251,7 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onDoctorSignInButtonPress,
                 child: Text(
-                  "Doctor",
+                  "Government",
                   style: TextStyle(
                       color: right,
                       fontSize: 16.0,
@@ -396,7 +393,46 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => login()),
+                    onPressed: () {
+                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                        duration: new Duration(seconds: 4),
+                        content: new Row(
+                          children: <Widget>[
+                            new CircularProgressIndicator(),
+                            new Text(
+                              "  Signing-In...",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ));
+                      login().whenComplete(() {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          backgroundColor: Colors.red,
+                          duration: new Duration(seconds: 3),
+                          content: new Row(
+                            children: <Widget>[
+                              new Icon(
+                                Icons.error,
+                                size: 40,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width -
+                                    MediaQuery.of(context).size.width / 3,
+                                child: new Text(
+                                  "Erorr check your input or the internet connection and try again!",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        ));
+                      });
+                    }),
               ),
             ],
           ),
@@ -504,7 +540,7 @@ class _LoginPageState extends State<LoginPage>
                               color: Colors.black,
                               size: 22.0,
                             ),
-                            hintText: "Given User Name",
+                            hintText: "Given Hospital mail",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                           ),
@@ -594,7 +630,45 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => doctorLogin()),
+                    onPressed: () {
+                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                        duration: new Duration(seconds: 4),
+                        content: new Row(
+                          children: <Widget>[
+                            new CircularProgressIndicator(),
+                            new Text(
+                              "  Signing-In...",
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ));
+                      login().whenComplete(() {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          backgroundColor: Colors.red,
+                          duration: new Duration(seconds: 3),
+                          content: new Row(
+                            children: <Widget>[
+                              new Icon(
+                                Icons.error,
+                                size: 40,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width -
+                                    MediaQuery.of(context).size.width / 3,
+                                child: new Text(
+                                  "Erorr check your input or the internet connection and try again!",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        ));
+                      });
+                    }),
               ),
             ],
           ),
