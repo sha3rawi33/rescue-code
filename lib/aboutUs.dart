@@ -32,12 +32,44 @@ class AboutUs extends StatelessWidget {
         ),
       ),
       body: ListView(
-
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(
+                height: 20,
+                width: 20,
+              ),
+              Text(
+                "Alexandria STEM School",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: "customFont",
+                    fontWeight: FontWeight.w900,
+                    wordSpacing: -7, color: Colors.blue.shade800),
+              ),
+              Image.asset(
+                "assets/logo.png",
+                height: 300,
+              ),
+              Text(
+                "Capstone Group details:",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Group Number: 12309\n- Hagar Ezzat\n- Heba Mabrouk\n- Mai Mohamed",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.blue.shade900),
+              ),
               // TODO: Add this shit hahahha
 //              School logo => image
 //              School name => text(ALEXANDRIA STEM SCHOOL)
@@ -47,7 +79,6 @@ class AboutUs extends StatelessWidget {
 //            member 3 => text 3 صغير
 //            Plebits LLC 2019 icon(copyright) => small text in the bottom
 //
-
             ],
           ),
         ],
