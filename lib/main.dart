@@ -7,6 +7,7 @@ import 'ambulance.dart';
 import 'onBoardingScreen.dart';
 import 'welcomePage.dart';
 import 'profilePage.dart';
+import 'aboutUs.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -22,5 +23,6 @@ void main() => runApp(MaterialApp(
         "boarding": (context) => new OnBoardingScreen(),
         "doctors": (context) => ChatList(),
         "profile": (context) => ProfilePage(),
+        "about": (context) => AboutUs(),
       },
     ));
