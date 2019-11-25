@@ -395,7 +395,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     onPressed: () {
                       _scaffoldKey.currentState.showSnackBar(new SnackBar(
-                        duration: new Duration(seconds: 4),
+                        duration: new Duration(seconds: 8),
                         content: new Row(
                           children: <Widget>[
                             new CircularProgressIndicator(),
@@ -632,7 +632,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     onPressed: () {
                       _scaffoldKey.currentState.showSnackBar(new SnackBar(
-                        duration: new Duration(seconds: 4),
+                        duration: new Duration(seconds: 8),
                         content: new Row(
                           children: <Widget>[
                             new CircularProgressIndicator(),
