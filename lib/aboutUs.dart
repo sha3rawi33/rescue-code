@@ -38,6 +38,14 @@ class AboutUs extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // TODO: Add this shit hahahha
+//              School logo => image
+//              School name => text(ALEXANDRIA STEM SCHOOL)
+//            team members => text size كبيرc
+//            member 1 => text صغير
+//            member 2 => text 2 صغير
+//            member 3 => text 3 صغير
+//
 
             ],
           ),
