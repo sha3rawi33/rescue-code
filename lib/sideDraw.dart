@@ -81,8 +81,8 @@ class SideDraw extends StatelessWidget {
               size: 30,
               color: Colors.red,
             ),
-            title: Text("Nearest Hospitals"),
-            subtitle: Text("To contact with the nearest hospitals"),
+            title: Text("Near Hospitals"),
+            subtitle: Text("To contact with the nearest hospital"),
             onTap: () {
               Navigator.pushNamed(context, 'doctors');
             },

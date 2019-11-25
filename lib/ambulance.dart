@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyDashboard extends StatefulWidget {
   @override
@@ -13,23 +17,37 @@ class _EmergencyDashboardState extends State<EmergencyDashboard> {
       backgroundColor: Color(0xFFEEEEEE),
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.redAccent,
         title: Text("EMERGENCY"),
+        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
-          _buildEmergencyOptions(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Here is a list of hospitals around you", style: TextStyle(color: Colors.black, fontSize: 18.0),),
+          SizedBox(
+            height: 20,
+            width: 30,
           ),
-          _buildHospitalList(),
+          Center(
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  "This is what you shall do\nin case of an emergency action",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                  textAlign: TextAlign.center,
+                )),
+          ),
+          SizedBox(
+            height: 20,
+            width: 30,
+          ),
+          _buildEmergencyOption1(),
+          _buildEmergencyOption2(),
         ],
       ),
     );
   }
 
-  Widget _buildEmergencyOptions() {
+  Widget _buildEmergencyOption1() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -50,60 +68,61 @@ class _EmergencyDashboardState extends State<EmergencyDashboard> {
                 Expanded(
                   child: Center(
                       child: Text(
-                        "Call an ambulance \nto your location",
-                        style: TextStyle(fontSize: 20.0, color: Colors.white),
-                      )),
+                    "Call an ambulance \nto your location",
+                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  )),
                   flex: 3,
                 )
               ],
             ),
           ),
           onTap: () {
-
+            launch("tel:123");
           },
         ),
       ),
     );
   }
 
-  Widget _buildHospitalList() {
-    return ListView(
-      children: <Widget>[
-        _buildHospitalCard("Souad kafafi Hospital","+201116913242", "26 July cordor"),
-        _buildHospitalCard("Ahmed Saad Hospital","+201116913242", "26 July cordor"),
-        _buildHospitalCard("Mohamed Hesham Hospital","+201116913242", "26 July cordor"),
-      ],
-      shrinkWrap: true,
-    );
-  }
+  static const url = "https://www.mayoclinic.org/first-aid";
 
-  Widget _buildHospitalCard(String hospitalName,String number, String address) {
+  Widget _buildEmergencyOption2() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(hospitalName, style: TextStyle(fontSize: 22.0,),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(number, style: TextStyle(fontSize: 16.0),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(address, style: TextStyle(fontSize: 16.0),),
-              ),
-            ],
+        color: Colors.green,
+        child: InkWell(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Icon(
+                    FontAwesomeIcons.firstAid,
+                    size: 40.0,
+                    color: Colors.white,
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+                  child: Center(
+                      child: Text(
+                    "Detailed First-Aid \n instructions",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  )),
+                  flex: 3,
+                )
+              ],
+            ),
           ),
+          onTap: () {
+            launch(url);
+          },
         ),
       ),
     );
   }
-
 }
