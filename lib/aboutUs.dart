@@ -45,6 +45,7 @@ class AboutUs extends StatelessWidget {
 //            member 1 => text صغير
 //            member 2 => text 2 صغير
 //            member 3 => text 3 صغير
+//            Plebits LLC 2019 icon(copyright) => small text in the bottom
 //
 
             ],
