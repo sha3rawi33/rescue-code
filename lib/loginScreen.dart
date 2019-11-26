@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage>
     });
   }
 
-  void doctorLogin() async {
+   doctorLogin() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     FirebaseAuth.instance
@@ -643,7 +643,7 @@ class _LoginPageState extends State<LoginPage>
                           ],
                         ),
                       ));
-                      login().whenComplete(() {
+                      doctorLogin().whenComplete(() {
                         _scaffoldKey.currentState.showSnackBar(new SnackBar(
                           backgroundColor: Colors.red,
                           duration: new Duration(seconds: 3),
