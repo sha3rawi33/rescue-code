@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rescue_code/doctorChatRoom.dart';
 import 'package:rescue_code/userSearch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class DoctorChat extends StatefulWidget {
   @override
@@ -12,12 +12,44 @@ class DoctorChat extends StatefulWidget {
 
 class _DoctorChatState extends State<DoctorChat> {
   List<dynamic> users;
+
+  initializeNotifications() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.configure(
+      onLaunch: (Map<String, dynamic> message) {
+        print('onLaunch called');
+        return null;
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('onResume called');
+        return null;
+      },
+      onMessage: (Map<String, dynamic> message) {
+        print('onMessage called');
+        return null;
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(IosNotificationSettings(
+      sound: true,
+      badge: true,
+      alert: true,
+    ));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {});
+    await _firebaseMessaging.getToken().then((token) async {
+      await Firestore.instance
+          .collection("users")
+          .document(_prefs.getString('uid'))
+          .updateData({"firebaseToken": token});
+    });
+  }
+
   void getUsers() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     DocumentReference reference = Firestore.instance
         .collection("users")
         .document(_prefs.getString('uid'));
-    // print(reference.path);
     QuerySnapshot list =
         await Firestore.instance.collection("users").getDocuments();
 
@@ -35,8 +67,8 @@ class _DoctorChatState extends State<DoctorChat> {
     });
   }
 
-  Future<dynamic> startChatRoom(
-      String userUID, String doctorUID, String userName) async {
+  Future<dynamic> startChatRoom(String userUID, String doctorUID,
+      String userName, String firebaseToken) async {
     DocumentReference userRef =
         Firestore.instance.collection("users").document(doctorUID);
     QuerySnapshot queryResults = await Firestore.instance
@@ -53,12 +85,12 @@ class _DoctorChatState extends State<DoctorChat> {
           context,
           MaterialPageRoute(
               builder: (context) => DoctorChatRoom(
-                userUID: userUID,
+                    userUID: userUID,
                     chatId: roomSnapshot.documentID,
                     doctorUID: doctorUID,
                     name: userName,
                     type: 'doctor',
-
+                    firebaseToken: firebaseToken,
                   )));
     }
   }
@@ -67,6 +99,7 @@ class _DoctorChatState extends State<DoctorChat> {
   void initState() {
     super.initState();
     getUsers();
+    initializeNotifications();
   }
 
   @override
@@ -88,9 +121,8 @@ class _DoctorChatState extends State<DoctorChat> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context)=> UserSearch()
-              ));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => UserSearch()));
             },
           )
         ],
@@ -102,10 +134,12 @@ class _DoctorChatState extends State<DoctorChat> {
         itemBuilder: (context, i) {
           return ListTile(
             trailing: IconButton(
-              onPressed: ()async {
-                    SharedPreferences _prefs = await SharedPreferences.getInstance();
+              onPressed: () async {
+                SharedPreferences _prefs =
+                    await SharedPreferences.getInstance();
 
-                startChatRoom(users[i]['token'], _prefs.getString('uid'), users[i]['name']);
+                startChatRoom(users[i]['token'], _prefs.getString('uid'),
+                    users[i]['name'], users[i]['firebaseToken']);
               },
               icon: Icon(
                 Icons.chat,

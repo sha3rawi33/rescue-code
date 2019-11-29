@@ -1,6 +1,8 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +15,22 @@ class ChatRoom extends StatefulWidget {
   final userUID;
   final String name;
   final type;
-
+  final firebaseToken;
   ChatRoom(
       {@required this.chatId,
       @required this.userUID,
       @required this.name,
-      this.type = 'user'});
+      this.type = 'user',
+      this.firebaseToken});
 
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  final String serverToken = 'AIzaSyAiPEZR_LRpHZqvBmPHNdtHK0RWQw_IRgY';
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
   Timer timer;
   List messages;
   bool _isComposingMessage = false;
@@ -38,9 +44,9 @@ class _ChatRoomState extends State<ChatRoom> {
         context: context,
         builder: (BuildContext context) {
           return BeautifulAlertDialog();
-        }
-    );
+        });
   }
+
   checkNsend() {
     String msg;
     msg = messageController.text.trim();
@@ -73,6 +79,48 @@ class _ChatRoomState extends State<ChatRoom> {
     }
   }
 
+  Future<Map<String, dynamic>> sendAndRetrieveMessage(
+      String title, String body) async {
+    await firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true),
+    );
+
+    await post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{'body': body, 'title': title},
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to': widget.firebaseToken,
+        },
+      ),
+    ).then((res) {
+      print(widget.firebaseToken);
+      print(res.body);
+    });
+
+    final Completer<Map<String, dynamic>> completer =
+        Completer<Map<String, dynamic>>();
+
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        completer.complete(message);
+      },
+    );
+    messageController.clear();
+
+    return completer.future;
+  }
+
   Future<bool> sendMessage(String message) async {
     //  if (message.trim() != '') {
 
@@ -94,7 +142,7 @@ class _ChatRoomState extends State<ChatRoom> {
       await chatroomRef.updateData({
         "messages": FieldValue.arrayUnion([serializedMessage])
       });
-      messageController.clear();
+      sendAndRetrieveMessage(_prefs.getString('name'), message);
       return true;
     } catch (e) {
       print('Error: $e');
@@ -126,7 +174,7 @@ class _ChatRoomState extends State<ChatRoom> {
     } catch (e) {
       print('Error: $e');
       return false;
-    } 
+    }
   }
 
   void getMessages() async {
@@ -157,6 +205,7 @@ class _ChatRoomState extends State<ChatRoom> {
     });
     getImage();
   }
+
   @override
   void dispose() {
     timer?.cancel();
@@ -276,6 +325,7 @@ class _ChatRoomState extends State<ChatRoom> {
         ));
   }
 }
+
 class BeautifulAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -292,27 +342,40 @@ class BeautifulAlertDialog extends StatelessWidget {
                   topLeft: Radius.circular(75),
                   bottomLeft: Radius.circular(75),
                   topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10)
-              )
-          ),
+                  bottomRight: Radius.circular(10))),
           child: Row(
             children: <Widget>[
               SizedBox(width: 20.0),
-              CircleAvatar(radius: 55, backgroundColor: Colors.grey.shade200, child: Center(child: Icon(Icons.error, color: Colors.red, size: 110,)),),
+              CircleAvatar(
+                radius: 55,
+                backgroundColor: Colors.grey.shade200,
+                child: Center(
+                    child: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 110,
+                )),
+              ),
               SizedBox(width: 20.0),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Wasn't sent!", style: TextStyle(fontSize: 20),),
+                    Text(
+                      "Wasn't sent!",
+                      style: TextStyle(fontSize: 20),
+                    ),
                     SizedBox(height: 10.0),
                     Flexible(
                       child: Text(
-                          "- Message Can't Be Empty",style: TextStyle(fontSize: 14),),
+                        "- Message Can't Be Empty",
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                     SizedBox(height: 10.0),
-                    Row(children: <Widget>[
+                    Row(
+                      children: <Widget>[
 //                      Expanded(
 //                        child: RaisedButton(
 //                          child: Text("No"),
@@ -322,17 +385,24 @@ class BeautifulAlertDialog extends StatelessWidget {
 //                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 //                        ),
 //                      ),
-                      SizedBox(width: 10.0),
-                      Expanded(
-                        child: RaisedButton(
-                          child: Text("Ok", style: TextStyle(fontSize: 20),),
-                          color: Colors.green,
-                          colorBrightness: Brightness.dark,
-                          onPressed: (){Navigator.pop(context);},
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            color: Colors.green,
+                            colorBrightness: Brightness.dark,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                          ),
                         ),
-                      ),
-                    ],)
+                      ],
+                    )
                   ],
                 ),
               )

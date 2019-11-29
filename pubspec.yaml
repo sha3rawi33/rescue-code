@@ -30,9 +30,10 @@ dependencies:
   geolocator:
   google_maps_flutter:
   url_launcher:
+  http:
   cupertino_icons: ^0.1.2
   flutter_launcher_icons:
-
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

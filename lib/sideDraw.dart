@@ -51,18 +51,7 @@ class SideDraw extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              size: 30,
-              color: Colors.red,
-            ),
-            title: Text("Profile"),
-            subtitle: Text("Check Your Profile and health details."),
-            onTap: () {
-              Navigator.pushNamed(context, "profile");
-            },
-          ),
+         
           ListTile(
             leading: Icon(
               FontAwesomeIcons.ambulance,

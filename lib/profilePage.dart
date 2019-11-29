@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -168,10 +169,42 @@ class MapScreenState extends State<ProfilePage>
     });
   }
 
+  initializeNotifications() async {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.configure(
+      onLaunch: (Map<String, dynamic> message) {
+        print('onLaunch called');
+        return null;
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('onResume called');
+        return null;
+      },
+      onMessage: (Map<String, dynamic> message) {
+        print('onMessage called');
+        return null;
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(IosNotificationSettings(
+      sound: true,
+      badge: true,
+      alert: true,
+    ));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {});
+    await _firebaseMessaging.getToken().then((token) async {
+      await Firestore.instance
+          .collection("users")
+          .document(widget.uid)
+          .updateData({"firebaseToken": token});
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    initializeNotifications();
   }
 
   @override

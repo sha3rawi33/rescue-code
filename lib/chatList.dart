@@ -15,8 +15,6 @@ class _ChatListState extends State<ChatList> {
   distance(double lat1, double lon1, lat2, lon2, unit) {
     var radlat1 = pi * lat1 / 180;
     var radlat2 = pi * lat2 / 180;
-    var radlon1 = pi * lon1 / 180;
-    var radlon2 = pi * lon2 / 180;
     var theta = lon1 - lon2;
     var radtheta = pi * theta / 180;
     var dist = sin(radlat1) * sin(radlat2) +
@@ -56,7 +54,7 @@ class _ChatListState extends State<ChatList> {
   }
 
   Future<dynamic> startChatRoom(
-      String userUID, String doctorUID, String doctorName) async {
+      String userUID, String doctorUID, String doctorName,String firebaseToken) async {
     DocumentReference userRef =
         Firestore.instance.collection("users").document(userUID);
     QuerySnapshot queryResults = await Firestore.instance
@@ -76,6 +74,7 @@ class _ChatListState extends State<ChatList> {
                     chatId: roomSnapshot.documentID,
                     userUID: userUID,
                     name: doctorName,
+                    firebaseToken: firebaseToken,
                   )));
     } else {
       Map<String, dynamic> chatroomMap = Map<String, dynamic>();
@@ -94,7 +93,7 @@ class _ChatListState extends State<ChatList> {
       });
       DocumentSnapshot chatroomSnapshot = await reference.get();
       print(chatroomSnapshot.data);
-      startChatRoom(userUID, doctorUID, doctorName);
+      startChatRoom(userUID, doctorUID, doctorName,firebaseToken);
     }
   }
 
@@ -131,7 +130,9 @@ class _ChatListState extends State<ChatList> {
                   SharedPreferences _prefs =
                       await SharedPreferences.getInstance();
                   startChatRoom(_prefs.getString('uid'), doctors[i]['uid'],
-                      doctors[i]['name']);
+                      doctors[i]['name'],
+                      doctors[i]['firebaseToken']
+                      );
                 },
               ),
             ),
