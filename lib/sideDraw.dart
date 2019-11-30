@@ -99,6 +99,7 @@ class SideDraw extends StatelessWidget {
             onTap: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove("uid");
+              await prefs.remove("type");
               final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
               await _firebaseMessaging.deleteInstanceID();
