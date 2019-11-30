@@ -101,7 +101,7 @@ class SideDraw extends StatelessWidget {
               await prefs.remove("uid");
               final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-              _firebaseMessaging.deleteInstanceID();
+              await _firebaseMessaging.deleteInstanceID();
 
               Navigator.pushReplacementNamed(context, 'boarding');
             },
