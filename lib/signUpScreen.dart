@@ -27,6 +27,7 @@ class _SignUpPageState extends State<SignUpPage>
   final FocusNode myFocusNodeName = FocusNode();
 
   bool _obscureTextSignup = true;
+  bool _obscureTextSignupConfirm = true;
 
   // TextFields Controllers
   TextEditingController signupEmailController = new TextEditingController();
@@ -46,34 +47,35 @@ class _SignUpPageState extends State<SignUpPage>
   var authInstance = FirebaseAuth.instance;
   createUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
+    
+      await authInstance
+          .createUserWithEmailAndPassword(
+        email: signupEmailController.text,
+        password: signupPasswordController.text,
+      )
+          .then((currentUser) async {
+        var allUsers =
+            await databaseInstance.collection('users').getDocuments();
+        var newID = allUsers.documents.length + 1;
+        databaseInstance
+            .collection("users")
+            .document(currentUser.user.uid)
+            .setData({
+          "token": currentUser.user.uid,
+          "id": newID.toString(),
+          "type": "user",
+          "name": signupNameController.text,
+          "email": signupEmailController.text
+        });
+        // Save USER ID from Firebase in SharedPreferences
 
-    await authInstance
-        .createUserWithEmailAndPassword(
-      email: signupEmailController.text,
-      password: signupPasswordController.text,
-    )
-        .then((currentUser) async {
-      var allUsers = await databaseInstance.collection('users').getDocuments();
-      var newID = allUsers.documents.length + 1;
-      databaseInstance
-          .collection("users")
-          .document(currentUser.user.uid)
-          .setData({
-        "token": currentUser.user.uid,
-        "id": newID.toString(),
-        "type": "user",
-        "name": signupNameController.text,
-        "email": signupEmailController.text
+        await _prefs.setString("uid", currentUser.user.uid);
+
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context)=> ProfilePage(uid: currentUser.user.uid)
+        ));
       });
-      // Save USER ID from Firebase in SharedPreferences
-
-      await _prefs.setString("uid", currentUser.user.uid);
-
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ProfilePage(uid: currentUser.user.uid)));
-    });
+    
   }
 
   @override
@@ -94,7 +96,6 @@ class _SignUpPageState extends State<SignUpPage>
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
           overscroll.disallowGlow();
-          return null;
         },
         child: SingleChildScrollView(
           child: Container(
@@ -343,10 +344,7 @@ class _SignUpPageState extends State<SignUpPage>
                         content: new Row(
                           children: <Widget>[
                             new CircularProgressIndicator(),
-                            new Text(
-                              "  Signing-Up...",
-                              style: TextStyle(color: Colors.white),
-                            )
+                            new Text("  Signing-Up...", style: TextStyle(color: Colors.white),)
                           ],
                         ),
                       ));
@@ -361,8 +359,7 @@ class _SignUpPageState extends State<SignUpPage>
                                 size: 40,
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width -
-                                    MediaQuery.of(context).size.width / 3,
+                                width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width/3,
                                 child: new Text(
                                   "Erorr check your input or the internet connection and try again!",
                                   style: TextStyle(
@@ -384,9 +381,20 @@ class _SignUpPageState extends State<SignUpPage>
     );
   }
 
+  void _onSignUpButtonPress() {
+    _pageController?.animateToPage(1,
+        duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+
   void _toggleSignup() {
     setState(() {
       _obscureTextSignup = !_obscureTextSignup;
+    });
+  }
+
+  void _toggleSignupConfirm() {
+    setState(() {
+      _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
 }
