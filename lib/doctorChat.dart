@@ -115,12 +115,11 @@ class _DoctorChatState extends State<DoctorChat> {
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove("uid");
-              await prefs.remove("type");
               final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-              await _firebaseMessaging.deleteInstanceID();
+              _firebaseMessaging.deleteInstanceID();
 
-              Navigator.pushReplacementNamed(context, 'boarding');
+              Navigator.pushReplacementNamed(context, 'welcome');
             },
           ),
           IconButton(

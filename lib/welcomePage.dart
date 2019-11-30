@@ -1,10 +1,11 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:rescue_code/profilePage.dart';
+import 'package:rescue_code/style/theme.dart' as Theme;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'doctorChat.dart';
 import 'style/delayedAnimation.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:rescue_code/style/theme.dart' as Theme;
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -193,7 +194,7 @@ class _WelcomePageState extends State<WelcomePage>
           ),
           child: Center(
             child: Text(
-              'Know More!',
+              'Take me in!',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
