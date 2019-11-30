@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rescue_code/welcomePage.dart';
 import 'chatList.dart';
 import 'landingPage.dart';
 import 'loginScreen.dart';
@@ -11,7 +12,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "RescueCode",
-    home: OnBoardingScreen(),
+    home: WelcomePage(),
     routes: {
       "login": (context) => new LoginPage(),
       "signup": (context) => new SignUpPage(),
