@@ -114,6 +114,9 @@ class _DoctorChatState extends State<DoctorChat> {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove("uid");
               await prefs.remove("type");
+              final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+              await _firebaseMessaging.deleteInstanceID();
 
               Navigator.pushReplacementNamed(context, 'boarding');
             },
