@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rescue_code/welcomePage.dart';
+
+import 'aboutUs.dart';
+import 'ambulance.dart';
 import 'chatList.dart';
 import 'landingPage.dart';
 import 'loginScreen.dart';
-import 'signUpScreen.dart';
-import 'ambulance.dart';
 import 'onBoardingScreen.dart';
-import 'aboutUs.dart';
+import 'signUpScreen.dart';
 
 void main() async {
   runApp(MaterialApp(
@@ -24,6 +25,7 @@ void main() async {
       //   ""
       // ),
       "about": (context) => AboutUs(),
+      "welcome": (context) => WelcomePage(),
     },
   ));
 }
