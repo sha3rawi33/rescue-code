@@ -93,7 +93,6 @@ class _ChatListState extends State<ChatList> {
       });
       DocumentSnapshot chatroomSnapshot = await reference.get();
       print(chatroomSnapshot.data);
-      startChatRoom(userUID, doctorUID, doctorName,firebaseToken);
     }
   }
 
