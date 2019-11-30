@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,7 +52,6 @@ class SideDraw extends StatelessWidget {
               ),
             ),
           ),
-         
           ListTile(
             leading: Icon(
               FontAwesomeIcons.ambulance,
@@ -99,6 +99,10 @@ class SideDraw extends StatelessWidget {
             onTap: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove("uid");
+              final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+              _firebaseMessaging.deleteInstanceID();
+
               Navigator.pushReplacementNamed(context, 'boarding');
             },
           ),
