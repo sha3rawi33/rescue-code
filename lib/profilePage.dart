@@ -171,6 +171,7 @@ class MapScreenState extends State<ProfilePage>
 
   initializeNotifications() async {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    await _firebaseMessaging.autoInitEnabled();
     _firebaseMessaging.configure(
       onLaunch: (Map<String, dynamic> message) {
         print('onLaunch called');

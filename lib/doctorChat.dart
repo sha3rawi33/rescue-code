@@ -16,6 +16,8 @@ class _DoctorChatState extends State<DoctorChat> {
   initializeNotifications() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    await _firebaseMessaging.autoInitEnabled();
+
     _firebaseMessaging.configure(
       onLaunch: (Map<String, dynamic> message) {
         print('onLaunch called');
