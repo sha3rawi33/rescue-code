@@ -1,12 +1,13 @@
-cloud_firestore=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.12.10+2\\
-firebase_auth=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.15.0+1\\
-firebase_core=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.4.2+1\\
-firebase_messaging=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging-6.0.1\\
-firebase_storage=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage-3.0.8\\
-geolocator=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\geolocator-5.1.5\\
-google_api_availability=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_api_availability-2.0.1\\
-google_maps_flutter=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_maps_flutter-0.5.21+12\\
-image_picker=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.6.2+1\\
-location_permissions=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\location_permissions-2.0.3\\
-shared_preferences=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences-0.5.4+6\\
-url_launcher=H:\\PROGRAMMING\\Frameworks\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher-5.2.7\\
+# This is a generated file; do not edit or check into version control.
+cloud_firestore=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.12.10+2\\
+firebase_auth=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\firebase_auth-0.15.0+1\\
+firebase_core=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\firebase_core-0.4.2+1\\
+firebase_messaging=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\firebase_messaging-6.0.1\\
+firebase_storage=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\firebase_storage-3.0.8\\
+geolocator=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\geolocator-5.1.5\\
+google_api_availability=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\google_api_availability-2.0.1\\
+google_maps_flutter=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\google_maps_flutter-0.5.21+12\\
+image_picker=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\image_picker-0.6.2+1\\
+location_permissions=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\location_permissions-2.0.3\\
+shared_preferences=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\shared_preferences-0.5.4+6\\
+url_launcher=C:\\Users\\Mythic\\AppData\\Roaming\\Pub\\Cache\\hosted\\pub.dartlang.org\\url_launcher-5.2.7\\
