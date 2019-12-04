@@ -72,27 +72,27 @@ class AboutUs extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Colors.blue.shade900),
               ),
-              SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "by PLEBITS LLC 2019",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: "customFont",
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Icon(
-                    Icons.copyright,
-                    size: 17,
-                    color: Colors.red,
-                  ),
-                ],
-              ),
+              // SizedBox(
+              //   height: 100,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: <Widget>[
+              //     Text(
+              //       "by PLEBITS LLC 2019",
+              //       style: TextStyle(
+              //           color: Colors.red,
+              //           fontFamily: "customFont",
+              //           fontWeight: FontWeight.bold),
+              //     ),
+              //     Icon(
+              //       Icons.copyright,
+              //       size: 17,
+              //       color: Colors.red,
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ],

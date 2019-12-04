@@ -135,29 +135,29 @@ class _WelcomePageState extends State<WelcomePage>
             SizedBox(
               height: 50.0,
             ),
-            DelayedAnimation(
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "PLEBITS LLC 2019",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          fontFamily: "customFont",
-                          color: color),
-                    ),
-                    Icon(
-                      Icons.copyright,
-                      color: Colors.white,
-                      size: 20,
-                    )
-                  ],
-                ),
-              ),
-              delay: delayedAmount + 1000,
-            ),
+            // DelayedAnimation(
+            //   child: Center(
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: <Widget>[
+            //         Text(
+            //           "PLEBITS LLC 2019",
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 14.0,
+            //               fontFamily: "customFont",
+            //               color: color),
+            //         ),
+            //         Icon(
+            //           Icons.copyright,
+            //           color: Colors.white,
+            //           size: 20,
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            //   delay: delayedAmount + 1000,
+            // ),
           ],
         ),
       ),
