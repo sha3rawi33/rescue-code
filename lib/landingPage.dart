@@ -54,26 +54,26 @@ class LandingPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.0,
-                            fontFamily: "customFont",
-                            color: Colors.white),
-                      ),
-                      Icon(
-                        Icons.copyright,
-                        color: Colors.white,
-                        size: 20,
-                      )
-                    ],
-                  ),
-                ),
+                // Center(
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: <Widget>[
+                //       Text(
+                //         "PLEBITS LLC 2019",
+                //         style: TextStyle(
+                //             fontWeight: FontWeight.bold,
+                //             fontSize: 14.0,
+                //             fontFamily: "customFont",
+                //             color: Colors.white),
+                //       ),
+                //       Icon(
+                //         Icons.copyright,
+                //         color: Colors.white,
+                //         size: 20,
+                //       )
+                //     ],
+                //   ),
+                // ),
                 new Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(

@@ -135,6 +135,7 @@ class _WelcomePageState extends State<WelcomePage>
             SizedBox(
               height: 50.0,
             ),
+<<<<<<< HEAD
             DelayedAnimation(
               child: Center(
                 child: Row(
@@ -158,6 +159,31 @@ class _WelcomePageState extends State<WelcomePage>
               ),
               delay: delayedAmount + 1000,
             ),
+=======
+            // DelayedAnimation(
+            //   child: Center(
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: <Widget>[
+            //         Text(
+            //           "PLEBITS LLC 2019",
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 14.0,
+            //               fontFamily: "customFont",
+            //               color: color),
+            //         ),
+            //         Icon(
+            //           Icons.copyright,
+            //           color: Colors.white,
+            //           size: 20,
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            //   delay: delayedAmount + 1000,
+            // ),
+>>>>>>> f9e41f86a123246516d574a49f31c97cb217c75c
           ],
         ),
       ),
