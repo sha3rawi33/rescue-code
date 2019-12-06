@@ -251,7 +251,7 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onDoctorSignInButtonPress,
                 child: Text(
-                  "Government",
+                  "Hospital",
                   style: TextStyle(
                       color: right,
                       fontSize: 16.0,

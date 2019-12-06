@@ -80,7 +80,7 @@ class AboutUs extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "by PLEBITS LLC 2019",
+                    "",
                     style: TextStyle(
                         color: Colors.red,
                         fontFamily: "customFont",

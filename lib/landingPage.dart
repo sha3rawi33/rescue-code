@@ -59,7 +59,7 @@ class LandingPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "PLEBITS LLC 2019",
+                        "",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14.0,
